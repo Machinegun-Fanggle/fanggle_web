@@ -7,19 +7,14 @@ import { getProviders, signIn } from "next-auth/react";
 function Login() {
 
 
-
-    // 추가된 부분
-    const [providers, setProviders] = useState(null);
+        const [providers, setProviders] = useState(null);
 
     useEffect(() => {
         (async () => {
             const res: any = await getProviders();
-            console.log(res);
             setProviders(res);
         })();
     }, []);
-    // 추가된 부분
-
 
 
     const emailRef = useRef(null);
