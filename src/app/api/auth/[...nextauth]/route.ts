@@ -4,6 +4,7 @@ import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
 import KakaoProvider from "next-auth/providers/kakao"
+import NaverProvider from "next-auth/providers/naver"
 
 const handler = NextAuth({
     providers: [
@@ -39,7 +40,7 @@ const handler = NextAuth({
                 )
                 const user = await res.json()
 
-                console.log(res)
+                //console.log(res)
 
                 if (user) {
                     // Any object returned will be saved in `user` property of the JWT
@@ -61,10 +62,15 @@ const handler = NextAuth({
             clientId: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID!,
             clientSecret: process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET!,
         }),
+
+        NaverProvider({
+            clientId: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID!,
+            clientSecret: process.env.NEXT_PUBLIC_NAVER_CLIENT_SECRET!,
+        }),
     ],
     callbacks: {
         async jwt({ token, user }) {
-            //console.log(user)
+            // console.log(user)
             //console.log(token)
             return { ...token, ...user }
         },
@@ -72,7 +78,6 @@ const handler = NextAuth({
         async session({ session, token }) {
             session.user = token as any
             console.log(session)
-
             return session
         },
     },
