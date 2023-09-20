@@ -42,11 +42,10 @@ export default function Home() {
     setResult(response);
   };
 
-  const testsignin = async () => {
+  const SignIn = async (social) => {
     try {
-      const response = await apiInstance.get(`/auth/kakao`)
+      const response = await apiInstance.get(`/auth/${social}`)
       const url = response.data;
-      console.log(response)
       window.location.href = url;
     } catch (error) {
       console.log(error)
@@ -70,6 +69,24 @@ export default function Home() {
           <h1>Social Login</h1>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }} >
+          <div>
+            <button onClick={() => SignIn("kakao")}>
+              Sign in with Kakao
+            </button>
+          </div>
+
+          <div>
+            <button onClick={() => SignIn("google")}>
+              Sign in with Google
+            </button>
+          </div>
+
+          <div>
+            <button onClick={() => SignIn("naver")}>
+              Sign in with Naver
+            </button>
+          </div>
+
           {/* {
             (session && session.user) ?
               (
@@ -139,11 +156,7 @@ export default function Home() {
               </button>)
           } */}
 
-          <div>
-            <button onClick={() => testsignin()}>
-              Sign in with Kakao
-            </button>
-          </div>
+
 
         </div>
       </div>
