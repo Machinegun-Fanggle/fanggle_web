@@ -93,9 +93,9 @@ const handler = NextAuth({
         },
     },
 
-    pages: {
-        signIn: "/signin",
-    },
+    // pages: {
+    //     signIn: "/signin",
+    // },
 })
 
 const SetSignIn = async (data) => {
