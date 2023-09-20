@@ -33,5 +33,5 @@
     "devDependencies": {
         "@types/jsonwebtoken": "^9.0.3"
     },
-    "proxy": "https://machinegun-soft.com"
+    "proxy": "https://machinegun-soft.com:2001"
 }

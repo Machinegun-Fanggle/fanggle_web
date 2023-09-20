@@ -2,6 +2,7 @@
 
 "use client";
 
+import axios from "axios"
 import React, { useRef, useEffect, useState } from "react";
 // import { getProviders, signIn } from "next-auth/react";
 import { apiInstance } from "@/app/api/apiInstance"
@@ -38,7 +39,7 @@ export default function Login() {
 
     const signin = async () => {
         try {
-            const response = await apiInstance.get(`/auth/kakao`)
+            const response = await axios.get(`/auth/kakao`)
             console.log(response)
         } catch (error) { }
     }
