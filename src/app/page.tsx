@@ -1,9 +1,10 @@
 "use client";
 
 import styled from "@emotion/styled"
-import { signIn, signOut, useSession } from "next-auth/react";
+// import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { RequestPayParams, RequestPayResponse } from "iamport-typings";
+import { apiInstance } from "@/app/api/apiInstance"
 
 const initialState: RequestPayParams = {
   pg: 'kakaopay',
@@ -20,7 +21,7 @@ const initialState: RequestPayParams = {
 
 
 export default function Home() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const [params, setParams] = useState<RequestPayParams>(initialState);
   const [result, setResult] = useState<RequestPayResponse>();
 
@@ -41,6 +42,15 @@ export default function Home() {
     setResult(response);
   };
 
+  const signin = async () => {
+    try {
+      const response = await apiInstance.get(`/auth/kakao`)
+      const url = response.data;
+      console.log(response.data)
+      window.location.href = url;
+    } catch (error) { }
+  }
+
 
   return (
     <>
@@ -58,7 +68,7 @@ export default function Home() {
           <h1>Social Login</h1>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }} >
-          {
+          {/* {
             (session && session.user) ?
               (
                 <div>
@@ -125,7 +135,14 @@ export default function Home() {
               >
                 로그인
               </button>)
-          }
+          } */}
+
+          <div>
+            <button onClick={() => signin}>
+              Sign in with Kakao
+            </button>
+          </div>
+
         </div>
       </div>
     </>
