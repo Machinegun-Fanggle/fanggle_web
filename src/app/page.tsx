@@ -46,7 +46,7 @@ export default function Home() {
     try {
       const response = await apiInstance.get(`/auth/kakao`)
       const url = response.data;
-      console.log(response.data)
+      console.log(response)
       window.location.href = url;
     } catch (error) { }
   }
