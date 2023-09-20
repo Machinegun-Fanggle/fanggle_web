@@ -41,7 +41,8 @@ export default function Login() {
         try {
             const response = await apiInstance.get(`/auth/kakao`)
             const url = response.data;
-            router.push(url)
+            console.log(response.data)
+            window.location.href = url;
         } catch (error) { }
     }
 
