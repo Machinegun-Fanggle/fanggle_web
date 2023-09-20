@@ -68,16 +68,23 @@ const handler = NextAuth({
             clientSecret: process.env.NEXT_PUBLIC_NAVER_CLIENT_SECRET!,
         }),
     ],
+
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user, account }) {
             // console.log(user)
-            //console.log(token)
+
+            if (account) {
+                console.log(account?.provider)
+                console.log(token)
+                console.log(user)
+            }
+
             return { ...token, ...user }
         },
 
         async session({ session, token }) {
             session.user = token as any
-            console.log(session)
+            // console.log(session)
             return session
         },
     },

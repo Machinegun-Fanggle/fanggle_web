@@ -6,17 +6,20 @@ import React, { useRef, useEffect, useState } from "react";
 import { getProviders, signIn } from "next-auth/react";
 import styled from "@emotion/styled"
 
-function Login() {
+export default function Login() {
 
 
-    const [providers, setProviders] = useState(null);
+    // const [providers, setProviders] = useState(null);
 
-    useEffect(() => {
-        (async () => {
-            const res: any = await getProviders();
-            setProviders(res);
-        })();
-    }, []);
+    // useEffect(() => {
+    //     (async () => {
+    //         const res: any = await getProviders();
+    //         // setProviders(res);
+
+    //         // console.log(res)
+    //         // console.log("1")
+    //     })();
+    // }, []);
 
 
     const emailRef = useRef(null);
@@ -33,24 +36,16 @@ function Login() {
         });
     };
 
-    // 추가된 부분
-    const handleKakao = async () => {
-        const result = await signIn("kakao", {
-            redirect: true,
-            callbackUrl: "/",
-        });
-    };
-    // 추가된 부분
+
+    const handleSign = async (name) => await signIn(name, { redirect: true, callbackUrl: "/" });
+
 
     return (
-        <main className="flex min-h-screen flex-col items-center space-y-10 p-24">
-            <h1 className="text-4xl font-semibold">Login</h1>
+        <div>
+            <h1>Login</h1>
             <div>
                 <div>
-                    <label
-                        htmlFor="email"
-                        className="block text-sm text-gray-800 dark:text-gray-200"
-                    >
+                    <label htmlFor="email">
                         Email
                     </label>
 
@@ -65,16 +60,13 @@ function Login() {
                             type="email"
                             required
                             autoFocus={true}
-                            className="mt-2 block w-full rounded-md border bg-white px-4 py-2 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-300"
                         />
                     </div>
                 </div>
 
                 <div className="mt-4">
                     <label
-                        htmlFor="password"
-                        className="block text-sm text-gray-800 dark:text-gray-200"
-                    >
+                        htmlFor="password">
                         Password
                     </label>
                     <div className="mt-1">
@@ -84,48 +76,42 @@ function Login() {
                             name="password"
                             ref={passwordRef}
                             onChange={(e: any) => (passwordRef.current = e.target.value)}
-                            className="mt-2 block w-full rounded-md border bg-white px-4 py-2 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-300"
                         />
                     </div>
                 </div>
 
                 <div className="mt-6">
-                    <button
-                        onClick={handleSubmit}
-                        className="w-full transform rounded-md bg-gray-700 px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-gray-600 focus:bg-gray-600 focus:outline-none"
-                    >
+                    <button onClick={handleSubmit}>
                         Log In
                     </button>
                 </div>
             </div>
 
 
-
             <div>
-                <button onClick={() => signIn("kakao", { redirect: true, callbackUrl: "/" })}
-                >
-                    kakao login
+                <button onClick={() => handleSign('kakao')}>
+                    Sign in with Kakao
                 </button>
             </div>
 
             <div>
-                <button onClick={() => signIn("google", { redirect: false, callbackUrl: "/" })}
-                >
-                    google login
+                <button onClick={() => handleSign('google')}>
+                    Sign in with Google
                 </button>
             </div>
 
             <div>
-                <button onClick={() => signIn("naver", { redirect: false, callbackUrl: "/" })}
-                >
-                    naver login
+                <button onClick={() => handleSign('naver')}>
+                    Sign in with Naver
                 </button>
             </div>
 
+            {/* <div>
+                <button onClick={() => handleSign('apple')}>
+                    Sign in with Apple
+                </button>
+            </div> */}
 
-
-        </main>
+        </div>
     );
 }
-
-export default Login;
