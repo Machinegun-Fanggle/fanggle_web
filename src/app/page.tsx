@@ -43,16 +43,14 @@ export default function Home() {
   };
 
   const testsignin = async () => {
-    // console.log("1123123")
-    // try {
-    //   const response = await apiInstance.get(`/auth/kakao`)
-    //   const url = response.data;
-    //   console.log(response)
-    //   window.location.href = url;
-    // } catch (error) {
-    //   console.log(error)
-    // }
-    window.location.href = 'https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252Fmachinegun-soft.com%253A2001%252Fauth%252Fkakao%252Fcallback%26through_account%3Dtrue%26client_id%3D2c5e007cfc1e33942f279c3478b389e5';
+    try {
+      const response = await apiInstance.get(`/auth/kakao`)
+      const url = response.data;
+      console.log(response)
+      window.location.href = url;
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
