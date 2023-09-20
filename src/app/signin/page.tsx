@@ -39,7 +39,7 @@ export default function Login() {
 
     const signin = async () => {
         try {
-            const response = await axios.get(`/auth/kakao`)
+            const response = await axios.get(`:2001/auth/kakao`)
             console.log(response)
         } catch (error) { }
     }
