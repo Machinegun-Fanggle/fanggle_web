@@ -1,6 +1,6 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
+// import { SessionProvider } from "next-auth/react";
 import React, { ReactNode } from "react";
 import NoSSRWrapper from "@/app/NoSSRWrapper"
 
@@ -9,10 +9,10 @@ interface Props {
 }
 function Providers({ children }: Props) {
     return (
-        <NoSSRWrapper>            
-            <SessionProvider>
-                {children}
-            </SessionProvider>
+        <NoSSRWrapper>
+            {/* <SessionProvider> */}
+            {children}
+            {/* </SessionProvider> */}
         </NoSSRWrapper>
     )
 }
