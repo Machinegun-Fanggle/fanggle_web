@@ -110,11 +110,11 @@ export default function Login() {
                 </button>
             </div>
 
-            <div>
+            {/* <div>
                 <button onClick={() => handleSign('naver')}>
                     Sign in with Naver
                 </button>
-            </div>
+            </div> */}
 
             {/* <div>
                 <button onClick={() => handleSign('apple')}>
