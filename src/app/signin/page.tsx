@@ -4,6 +4,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { getProviders, signIn } from "next-auth/react";
+import { apiInstance } from "@/app/api/apiInstance"
 import styled from "@emotion/styled"
 
 export default function Login() {
@@ -15,7 +16,6 @@ export default function Login() {
     //     (async () => {
     //         const res: any = await getProviders();
     //         // setProviders(res);
-
     //         // console.log(res)
     //         // console.log("1")
     //     })();
@@ -35,6 +35,13 @@ export default function Login() {
             callbackUrl: "/",
         });
     };
+
+    const signin = async () => {
+        try {
+            const response = await apiInstance.get(`/auth/kakao`)
+            console.log(response)
+        } catch (error) { }
+    }
 
 
     const handleSign = async (name) => await signIn(name, { redirect: true, callbackUrl: "/" });
@@ -89,7 +96,7 @@ export default function Login() {
 
 
             <div>
-                <button onClick={() => handleSign('kakao')}>
+                <button onClick={() => signin()}>
                     Sign in with Kakao
                 </button>
             </div>

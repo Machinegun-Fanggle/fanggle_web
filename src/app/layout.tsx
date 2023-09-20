@@ -2,6 +2,7 @@
 
 import Providers from "./components/Providers";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <>
+          <Script src="https://code.jquery.com/jquery-1.12.4.min.js" strategy="beforeInteractive" />
+          <Script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js" strategy="beforeInteractive" />
+          <Providers>{children}</Providers>
+        </>
       </body>
     </html>
   );

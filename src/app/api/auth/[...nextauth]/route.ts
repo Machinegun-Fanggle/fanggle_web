@@ -6,6 +6,8 @@ import GoogleProvider from "next-auth/providers/google"
 import KakaoProvider from "next-auth/providers/kakao"
 import NaverProvider from "next-auth/providers/naver"
 
+import { apiInstance } from "@/app/api/apiInstance"
+
 const handler = NextAuth({
     providers: [
         CredentialsProvider({
@@ -70,10 +72,12 @@ const handler = NextAuth({
     ],
 
     callbacks: {
-        async jwt({ token, user, account }) {
+        async jwt({ token, user, account, isNewUser }) {
             // console.log(user)
 
             if (account) {
+                await SetSignIn([token, user, account, isNewUser])
+
                 console.log(account?.provider)
                 console.log(token)
                 console.log(user)
@@ -84,7 +88,7 @@ const handler = NextAuth({
 
         async session({ session, token }) {
             session.user = token as any
-            // console.log(session)
+            await SetSignIn([token, session])
             return session
         },
     },
@@ -93,5 +97,12 @@ const handler = NextAuth({
         signIn: "/signin",
     },
 })
+
+const SetSignIn = async (data) => {
+    try {
+        const response = await apiInstance.post(`/account/signup`, data)
+        console.log(response)
+    } catch (error) {}
+}
 
 export { handler as GET, handler as POST }

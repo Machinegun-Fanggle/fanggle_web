@@ -9,7 +9,7 @@ interface Props {
 }
 function Providers({ children }: Props) {
     return (
-        <NoSSRWrapper>
+        <NoSSRWrapper>            
             <SessionProvider>
                 {children}
             </SessionProvider>
