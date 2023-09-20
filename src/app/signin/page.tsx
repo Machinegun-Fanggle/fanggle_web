@@ -3,7 +3,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { getProviders, signIn } from "next-auth/react";
+// import { getProviders, signIn } from "next-auth/react";
 import { apiInstance } from "@/app/api/apiInstance"
 import styled from "@emotion/styled"
 
@@ -25,16 +25,16 @@ export default function Login() {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
 
-    const handleSubmit = async () => {
-        // console.log(emailRef.current);
-        // console.log(passwordRef.current);
-        const result = await signIn("credentials", {
-            username: emailRef.current,
-            password: passwordRef.current,
-            redirect: true,
-            callbackUrl: "/",
-        });
-    };
+    // const handleSubmit = async () => {
+    //     // console.log(emailRef.current);
+    //     // console.log(passwordRef.current);
+    //     const result = await signIn("credentials", {
+    //         username: emailRef.current,
+    //         password: passwordRef.current,
+    //         redirect: true,
+    //         callbackUrl: "/",
+    //     });
+    // };
 
     const signin = async () => {
         try {
@@ -44,7 +44,7 @@ export default function Login() {
     }
 
 
-    const handleSign = async (name) => await signIn(name, { redirect: true, callbackUrl: "/" });
+    // const handleSign = async (name) => await signIn(name, { redirect: true, callbackUrl: "/" });
 
 
     return (
@@ -87,11 +87,11 @@ export default function Login() {
                     </div>
                 </div>
 
-                <div className="mt-6">
+                {/* <div className="mt-6">
                     <button onClick={handleSubmit}>
                         Log In
                     </button>
-                </div>
+                </div> */}
             </div>
 
 
@@ -101,7 +101,7 @@ export default function Login() {
                 </button>
             </div>
 
-            <div>
+            {/* <div>
                 <button onClick={() => handleSign('google')}>
                     Sign in with Google
                 </button>
@@ -111,7 +111,7 @@ export default function Login() {
                 <button onClick={() => handleSign('naver')}>
                     Sign in with Naver
                 </button>
-            </div>
+            </div> */}
 
             {/* <div>
                 <button onClick={() => handleSign('apple')}>
