@@ -42,13 +42,16 @@ export default function Home() {
     setResult(response);
   };
 
-  const signin = async () => {
+  const testsignin = async () => {
+    console.log("1123123")
     try {
       const response = await apiInstance.get(`/auth/kakao`)
       const url = response.data;
       console.log(response)
       window.location.href = url;
-    } catch (error) { }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
@@ -138,7 +141,7 @@ export default function Home() {
           } */}
 
           <div>
-            <button onClick={() => signin}>
+            <button onClick={() => testsignin()}>
               Sign in with Kakao
             </button>
           </div>
