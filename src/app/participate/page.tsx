@@ -16,7 +16,7 @@ export default function Page() {
             justifyContent: 'center',
         }}>
             <Image src={logo} alt='로고 이미지' />
-            <button>새로운 가족 만들기</button>
+            <button onClick={() => router.push('/participate/createfamily')}>새로운 가족 만들기</button>
             <button onClick={() => router.push('/participate/authcode')}>코드로 참여하기</button>
         </div>
     );
