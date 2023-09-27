@@ -5,6 +5,7 @@ import styled from "@emotion/styled"
 import { useState } from "react";
 import { RequestPayParams, RequestPayResponse } from "iamport-typings";
 import { apiInstance } from "@/app/api/apiInstance"
+import { useRouter } from 'next/navigation'
 
 const initialState: RequestPayParams = {
   pg: 'kakaopay',
@@ -24,6 +25,7 @@ export default function Home() {
   // const { data: session } = useSession();
   const [params, setParams] = useState<RequestPayParams>(initialState);
   const [result, setResult] = useState<RequestPayResponse>();
+  const router = useRouter()
 
   const IMP_UID = "imp83550806";
 
@@ -84,6 +86,13 @@ export default function Home() {
           <div>
             <button onClick={() => SignIn("naver")}>
               Sign in with Naver
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => router.push('/participate', { scroll: false })}
+            >
+              로그인
             </button>
           </div>
 
