@@ -1,15 +1,22 @@
-//app/signin/page.tsx
-
 "use client";
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation'
 
-export default function Login() {
+export default function Page() {
+
+    const router = useRouter();
 
 
+    const handleGetQuestion = () => {
+
+        router.push('/main/question', { scroll: false })
+
+    };
 
     return (
         <div>
-            <h1>main</h1>
+            <button onClick={handleGetQuestion}>질문 받기</button>
         </div>
     );
 }
