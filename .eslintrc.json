@@ -4,7 +4,13 @@
     "commonjs": true,
     "es2021": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:storybook/recommended",
+    "next/core-web-vitals",
+    "plugin:react-hooks/recommended"
+  ],
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest"
