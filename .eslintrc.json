@@ -9,7 +9,8 @@
     "plugin:react/recommended",
     "plugin:storybook/recommended",
     "next/core-web-vitals",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
   ],
   "overrides": [],
   "parserOptions": {
