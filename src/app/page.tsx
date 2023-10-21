@@ -36,7 +36,6 @@ export default function Home() {
 
       IMP.request_pay(params, onPaymentAccepted);
     }
-
   };
 
   const onPaymentAccepted = (response: RequestPayResponse) => {

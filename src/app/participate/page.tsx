@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import Image from 'next/image'
-import logo from '@/app/assets/fanggle_logo.svg'
+import logo from '../../../public/fanggle_logo.svg'
 import { useRouter } from 'next/navigation'
 export default function Page() {
 
