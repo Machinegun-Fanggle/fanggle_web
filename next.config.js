@@ -8,15 +8,8 @@ const nextConfig = {
         destination: '/about',
         permanent: false,
       },
-    ]
+    ];
   },
-  experimental: {
-    turbo: {
-      loaders: {
-        '.svg': ['@svgr/webpack'],
-      },
-    },
-  },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

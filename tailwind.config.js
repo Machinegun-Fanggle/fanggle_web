@@ -1,4 +1,4 @@
-import theme from 'config/theme'
+import theme from './config/theme';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -14,4 +14,4 @@ module.exports = {
     extend: theme,
   },
   plugins: [],
-}
+};

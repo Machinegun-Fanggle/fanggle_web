@@ -7,6 +7,6 @@ const theme = {
       light: '#767676',
     },
   },
-}
+};
 
-export default theme
+export default theme;
