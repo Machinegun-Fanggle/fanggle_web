@@ -1,8 +1,6 @@
-import Image from 'next/image';
-
-import Logo from '@public/fanggle_logo.svg';
 import LoginContent from './LoginContent';
 import { Flex } from '@radix-ui/themes';
+import FanggleLogo from '@svg/FanggleLogo';
 
 const Login = () => {
   return (
@@ -12,7 +10,7 @@ const Login = () => {
       justify="between"
       className="h-[100vh] pt-[243px]"
     >
-      <Image src={Logo} alt="logo.svg" />
+      <FanggleLogo />
       <LoginContent />
     </Flex>
   );
