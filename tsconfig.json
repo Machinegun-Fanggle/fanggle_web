@@ -24,8 +24,8 @@
       "@public/*": ["./public/*"],
       "@component/*": ["./src/app/components/*"],
       "@svg/*": ["./src/app/components/svg/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@lib/*": ["./src/app/lib/*"],
+      "@utils/*": ["./src/app/utils/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
