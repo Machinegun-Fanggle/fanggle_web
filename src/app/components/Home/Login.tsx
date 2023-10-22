@@ -1,3 +1,5 @@
+'use client';
+
 import LoginContent from './LoginContent';
 import { Flex } from '@radix-ui/themes';
 import FanggleLogo from '@svg/FanggleLogo';

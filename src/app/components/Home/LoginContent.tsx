@@ -1,4 +1,5 @@
 import { Flex } from '@radix-ui/themes';
+import { signIn } from 'next-auth/react';
 
 import KakaoCircle from '@svg/KakaoCircle';
 import NaverCircle from '@svg/NaverCircle';
@@ -12,10 +13,10 @@ const LoginContent = () => {
 
       {/* svg 정책 및 ghost 버튼이 미비하여 임시 작성 됨 */}
       <div className="flex gap-x-[9px]">
-        <button>
+        <button onClick={() => signIn('kakao')}>
           <KakaoCircle />
         </button>
-        <button>
+        <button onClick={() => signIn('naver')}>
           <NaverCircle />
         </button>
       </div>

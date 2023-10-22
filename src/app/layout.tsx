@@ -4,6 +4,7 @@ import Script from 'next/script';
 import { Theme } from '@radix-ui/themes';
 import '@public/styles.css';
 import '@radix-ui/themes/styles.css';
+import AuthSession from '@component/context/AuthSession';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,10 +30,12 @@ export default function RootLayout({
             strategy="beforeInteractive"
           />
           <Theme>
-            {/* 임시 고정 레이아웃 */}
-            <div className="flex justify-center overflow-hidden">
-              <div className="min-w-[393px] max-w-[393px]">{children}</div>
-            </div>
+            <AuthSession>
+              {/* 임시 고정 레이아웃 */}
+              <div className="flex justify-center overflow-hidden">
+                <div className="min-w-[393px] max-w-[393px]">{children}</div>
+              </div>
+            </AuthSession>
           </Theme>
         </>
       </body>
