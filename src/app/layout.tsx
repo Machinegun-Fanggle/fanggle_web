@@ -30,7 +30,7 @@ export default function RootLayout({
           />
           <Theme>
             {/* 임시 고정 레이아웃 */}
-            <div className="flex justify-center">
+            <div className="flex justify-center overflow-hidden">
               <div className="h-[100vh] min-w-[393px] max-w-[393px]">
                 {children}
               </div>
