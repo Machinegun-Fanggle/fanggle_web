@@ -3,10 +3,16 @@ import { ButtonProps as RadixButtonProps } from '@radix-ui/themes/dist/cjs/compo
 import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-type RadixVariant = Pick<RadixButtonProps, 'variant'>;
-type ButtonType = 'blue' | 'blue-outline' | 'gray' | 'gray-outline' | 'none';
+type RadixVariant =
+  | 'classic'
+  | 'solid'
+  | 'soft'
+  | 'surface'
+  | 'outline'
+  | 'ghost';
+type ButtonType = 'blue' | 'blue-outline' | 'gray' | 'gray-outline' | 'ghost';
 type ButtonProps = Omit<RadixButtonProps, 'variant' | 'color'> & {
-  variant: ButtonType;
+  variant?: ButtonType;
   radixVariant?: RadixVariant;
 };
 
@@ -18,18 +24,17 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   const variantClassNames = variantDict[variant];
-
   return (
     <RadixButton
-      {...props}
       className={twMerge(
         clsx(
-          variantClassNames,
-          'w-[300px] h-[50px] font-bold rounded-lg',
+          !radixVariant && variantClassNames,
+          'w-fit h-fit font-bold rounded-lg',
           className
         )
       )}
-      variant={radixVariant?.variant}
+      {...props}
+      variant={radixVariant}
     >
       {children}
     </RadixButton>
@@ -41,7 +46,7 @@ const variantDict: Record<ButtonType, string> = {
   'blue-outline': 'bg-white text-primary border-[1px]',
   gray: 'bg-secondary text-white',
   'gray-outline': 'bg-white text-secondary border-[1px]',
-  none: null,
+  ghost: '!bg-transparent',
 };
 
 export default Button;
