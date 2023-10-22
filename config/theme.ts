@@ -7,6 +7,9 @@ const theme = {
       light: '#767676',
     },
   },
+  boxShadow: {
+    md: '0px 4px 4px rgba(217, 214, 214, 0.25)',
+  },
 };
 
 export default theme;
