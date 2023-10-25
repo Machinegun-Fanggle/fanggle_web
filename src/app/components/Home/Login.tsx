@@ -10,9 +10,16 @@ const Login = () => {
       direction="column"
       align="center"
       justify="between"
-      className="h-[100vh] pt-[243px]"
+      className="h-[100vh]"
     >
-      <FanggleLogo />
+      <Flex
+        align="center"
+        justify="center"
+        height="100%"
+        className="pb-[100px]"
+      >
+        <FanggleLogo />
+      </Flex>
       <LoginContent />
     </Flex>
   );
