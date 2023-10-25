@@ -1,4 +1,4 @@
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import Script from 'next/script';
 
 import { Theme } from '@radix-ui/themes';
@@ -6,10 +6,26 @@ import '@public/styles.css';
 import '@radix-ui/themes/styles.css';
 import AuthSession from '@component/context/AuthSession';
 
-const inter = Inter({
-  subsets: ['latin'],
+const pretendard = localFont({
+  src: [
+    {
+      path: '../../public/Pretendard-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/Pretendard-Medium.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/Pretendard-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font--pretendard',
 });
 
 export default function RootLayout({
@@ -19,7 +35,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.variable}>
+      <body className={`${pretendard.className} ${pretendard.variable}`}>
         <>
           <Script
             src="https://code.jquery.com/jquery-1.12.4.min.js"

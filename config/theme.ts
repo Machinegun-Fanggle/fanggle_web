@@ -11,6 +11,9 @@ const theme = {
   boxShadow: {
     md: '0px 4px 4px rgba(217, 214, 214, 0.25)',
   },
+  fontFamily: {
+    pretendard: ['var(--font-pretendard)'],
+  },
 };
 
 export default theme;
