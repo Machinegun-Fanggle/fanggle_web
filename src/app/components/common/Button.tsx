@@ -1,43 +1,28 @@
-import { Button as RadixButton } from '@radix-ui/themes';
-import { ButtonProps as RadixButtonProps } from '@radix-ui/themes/dist/cjs/components/button';
 import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { HTMLAttributes } from 'react';
 
-type RadixVariant =
-  | 'classic'
-  | 'solid'
-  | 'soft'
-  | 'surface'
-  | 'outline'
-  | 'ghost';
 type ButtonType = 'blue' | 'blue-outline' | 'gray' | 'gray-outline' | 'ghost';
-type ButtonProps = Omit<RadixButtonProps, 'variant' | 'color'> & {
+type ButtonProps = {
   variant?: ButtonType;
-  radixVariant?: RadixVariant;
-};
+} & HTMLAttributes<HTMLButtonElement>;
 
-const Button = ({
-  children,
-  variant,
-  radixVariant,
-  className,
-  ...props
-}: ButtonProps) => {
+const Button = ({ children, variant, className, ...props }: ButtonProps) => {
   const variantClassNames = variantDict[variant];
   return (
-    <RadixButton
+    <button
       className={twMerge(
         clsx(
-          !radixVariant && variantClassNames,
-          'w-fit h-fit font-bold rounded-lg',
+          variantClassNames,
+          'font-bold rounded-lg',
+          'min-w-[100px] h-[50px]',
           className
         )
       )}
       {...props}
-      variant={radixVariant}
     >
       {children}
-    </RadixButton>
+    </button>
   );
 };
 
