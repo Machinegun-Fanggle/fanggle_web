@@ -1,7 +1,6 @@
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import { Theme } from '@radix-ui/themes';
 import '@public/styles.css';
 import '@radix-ui/themes/styles.css';
 import AuthSession from '@component/context/AuthSession';
@@ -14,8 +13,13 @@ const pretendard = localFont({
       style: 'normal',
     },
     {
-      path: '../../public/Pretendard-Medium.woff2',
+      path: '../../public/Pretendard-Regular.woff2',
       weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/Pretendard-Medium.woff2',
+      weight: '500',
       style: 'normal',
     },
     {
@@ -45,14 +49,12 @@ export default function RootLayout({
             src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
             strategy="beforeInteractive"
           />
-          <Theme>
-            <AuthSession>
-              {/* 임시 고정 레이아웃 */}
-              <div className="flex justify-center overflow-hidden">
-                <div className="min-w-[393px] max-w-[393px]">{children}</div>
-              </div>
-            </AuthSession>
-          </Theme>
+          <AuthSession>
+            {/* 임시 고정 레이아웃 */}
+            <div className="flex justify-center overflow-x-hidden h-full">
+              <div className="min-w-[393px] max-w-[393px]">{children}</div>
+            </div>
+          </AuthSession>
         </>
       </body>
     </html>

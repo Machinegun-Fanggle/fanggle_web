@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.radix-themes {
-    --default-font-family: var(--font--pretendard), sans-serif !important;
+* {
+    box-sizing: border-box !important;
 }
 
 html, body {
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    padding: 0;
+    margin: 0;
     font-family: var(--font--pretendard);
 }
