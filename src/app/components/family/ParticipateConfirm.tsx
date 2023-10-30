@@ -1,11 +1,21 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import Text from '@component/common/Text';
 import Button from '@component/common/Button';
+import { useRouter } from 'next/navigation';
 
 const ParticipateConfirm = () => {
+  const { back } = useRouter();
+
+  useEffect(() => {
+    window.addEventListener('hashchange', back);
+    return () => window.removeEventListener('hashchange', back);
+  }, []);
+
   return (
-    <div className="h-full">
-      <section className="pt-[131px] flex flex-col h-full gap-y-[5px]">
+    <div className="h-full flex flex-col">
+      <section className="pt-[74px] flex flex-col h-full gap-y-[5px] px-7">
         <Text weight="bold" color="purple" className="text-[24px]">
           하하호호 따르릉
         </Text>
