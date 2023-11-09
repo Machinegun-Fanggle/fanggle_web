@@ -32,6 +32,8 @@ const pretendard = localFont({
   variable: '--font--pretendard',
 });
 
+import React from 'react';
+
 export default function RootLayout({
   children,
 }: {
@@ -49,6 +51,7 @@ export default function RootLayout({
             src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
             strategy="beforeInteractive"
           />
+
           <AuthSession>
             {/* 임시 고정 레이아웃 */}
             <div className="flex justify-center overflow-x-hidden h-full">
