@@ -54,8 +54,8 @@ export default function EformSignPage() {
       s_sig.updateString(execution_time);
       const signature = s_sig.sign();
 
-      console.log('!!!!!!!!!!!!!!!data:', execution_time);
-      console.log('!!!!!!!!!!!!!!!eformsign_signature:', signature);
+      console.log('execution_time:', execution_time);
+      console.log('signature:', signature);
 
       return {
         signature: signature,
@@ -89,7 +89,7 @@ export default function EformSignPage() {
         postData,
         {
           headers: {
-            Authorize: authorizeValue, // Base64 인코딩된 'Authorize' 헤더를 추가합니다.
+            Authorization: authorizeValue, // Base64 인코딩된 'Authorize' 헤더를 추가합니다.
             Signature: param.signature, // 'Signature' 헤더에 인자로 받은 서명을 추가합니다.
           },
         }
