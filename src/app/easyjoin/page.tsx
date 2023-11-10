@@ -297,6 +297,7 @@ export default function EformSignPage() {
           country_code: 'kr', // 국가 코드 입력 (ex: kr)
           user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교
         },
+
         mode: {
           type: '01', // 01 : 생성
           template_type: 'unstructured_form', // form : 템플릿 관리, unstructured_form: 내 파일로 문서 작성
@@ -306,11 +307,11 @@ export default function EformSignPage() {
           header: true, // 상단바 (푸른색) 표시 여부. 미표시 시 액션 버튼을 통해 전송 등 동작 가능
           footer: false, // 하단바 (이폼사인 로고, 언어 설정 등) 표시 여부.
         },
-        // user: {
-        //   id: 'tntnteoskfk@gmail.com',
-        //   access_token: accessToken, // Access Token 입력 (OpenAPI Access Token 참조)
-        //   refresh_token: refreshToken, // Refresh Token 입력 (OpenAPI Access Token 참조)
-        // },
+        user: {
+          id: 'tntnteoskfk@gmail.com',
+          access_token: accessToken, // Access Token 입력 (OpenAPI Access Token 참조)
+          refresh_token: refreshToken, // Refresh Token 입력 (OpenAPI Access Token 참조)
+        },
         // prefill: {
         //   template_name: '템플릿 임베딩 테스트_신규',
         //   fields: [
