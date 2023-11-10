@@ -54,9 +54,10 @@ export default function RootLayout({
 
           <AuthSession>
             {/* 임시 고정 레이아웃 */}
-            <div className="flex justify-center overflow-x-hidden h-full">
+            {/* <div className="flex justify-center overflow-x-hidden h-full">
               <div className="min-w-[393px] max-w-[393px]">{children}</div>
-            </div>
+            </div> */}
+            {children}
           </AuthSession>
         </>
       </body>
