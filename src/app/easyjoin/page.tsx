@@ -272,6 +272,7 @@ export default function EformSignPage() {
     createSignature().then((data: SignitureBody) =>
       getAccessTokenFromEformsign(data).then(() => {
         createTemplateWithMyOwnDocs();
+        refreshAccessToken();
         getDocumentList();
       })
     );
