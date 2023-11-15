@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Script from 'next/script';
 import axios from 'axios';
 import { KEYUTIL, Signature } from 'jsrsasign';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { DocumentOption } from './interface/documentOption';
 import { TemplateOption } from './interface/templateOption';
 import { SignitureBody, Credentials } from './interface/auth';
@@ -23,6 +23,7 @@ export default function EformSignPage() {
   const [accessToken, setAccessToken] = useState('');
   const [refreshToken, setRefreshToken] = useState('');
   const [signature, setSignature] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [execution_time, setExecution_time] = useState('');
 
   // const router = useRouter();
@@ -165,6 +166,7 @@ export default function EformSignPage() {
     const authorizeValue = encodeToBase64(apiKey);
     alert(authorizeValue);
     // 2. Header: 생성한 서명값(eformsign_signature) (* 참고: API 키 발급 시 설정한 검증유형에 따라 다름)
+    // eslint-disable-next-line no-unused-vars
     const headers = {
       Accept: 'application/json;charset=utf-8',
       eformsign_signature: signature,
@@ -173,17 +175,17 @@ export default function EformSignPage() {
     };
 
     try {
-      const response = await axios.post(
-        'https://api.eformsign.com/v2.0/api/list_documents',
-        {
-          type: '01',
-          title_and_content: '',
-          title: '',
-          content: '',
-          limit: '20',
-          skip: '0',
-        },
-        { headers }
+      const response = await axios.get(
+        'https://api.eformsign.com/v2.0/api/documents?include_fields=true&include_histories=true&include_previous_status=true&include_next_status=true'
+        // {
+        //   type: '01',
+        //   title_and_content: '',
+        //   title: '',
+        //   content: '',
+        //   limit: '20',
+        //   skip: '0',
+        // }
+        // { headers }
       );
       console.log(response.data);
       console.table(response.data);
