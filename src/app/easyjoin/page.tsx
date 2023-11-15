@@ -394,7 +394,8 @@ export default function EformSignPage() {
             );
           }
         }
-        window.close();
+        // window.close();
+        console.log(response);
       };
 
       const error_callback = (response) => {
@@ -407,11 +408,13 @@ export default function EformSignPage() {
         );
         console.log(response.code);
         console.log(response.message);
-        window.close();
+        console.log(response);
+        // window.close();
       };
 
       const action_callback = (response) => {
         console.table(response.data);
+        console.log(response);
       };
 
       eformsign.template(
