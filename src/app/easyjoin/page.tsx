@@ -159,7 +159,7 @@ export default function EformSignPage() {
     router.push('/', { scroll: false });
   };
 
-  const successCreateTemplate = (response) => {
+  const successCreateTemplate = async (response) => {
     if (response.type === 'template') {
       alert(
         '템플릿 생성되었습니다.\n' +
@@ -168,11 +168,10 @@ export default function EformSignPage() {
           '\n- title : ' +
           response.template_name
       );
-      signDocsByTemplateId(response.template_id);
+      await signDocsByTemplateId(response.template_id);
     }
   };
   const success_callback = (func: any) => async (response) => {
-    alert('1');
     if (response.code == '-1') func(response);
   };
 
