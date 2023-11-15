@@ -190,14 +190,14 @@ export default function EformSignPage() {
 
       createTemplateWithUnstructuredFormOption.mode.template_id = template_id;
 
-      eformsign.document(
+      await eformsign.document(
         signTemplateByTemplateIdOption,
         'eformsign_iframe',
         success_callback(successSendDocs),
         error_callback,
         action_callback
       );
-      eformsign.open();
+      await eformsign.open();
     }
   };
 
@@ -205,7 +205,7 @@ export default function EformSignPage() {
     if (window.EformSignTemplate) {
       const eformsign = new window.EformSignTemplate();
 
-      eformsign.template(
+      await eformsign.template(
         createTemplateWithUnstructuredFormOption,
         'eformsign_iframe',
         success_callback(successCreateTemplate),
