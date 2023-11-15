@@ -164,7 +164,7 @@ export default function EformSignPage() {
   async function getDocumentList() {
     // 1. Authorize: 이폼사인에서 발급받은 API 키를 Base64로 인코딩한 값 입력
     const authorizeValue = encodeToBase64(apiKey);
-    // alert(authorizeValue);
+    console.log(authorizeValue);
     // 2. Header: 생성한 서명값(eformsign_signature) (* 참고: API 키 발급 시 설정한 검증유형에 따라 다름)
     // eslint-disable-next-line no-unused-vars
     const headers = {
@@ -188,7 +188,7 @@ export default function EformSignPage() {
       //   }
       // );
       const response = await axios.post(
-        'https://api.eformsign.com/v2.0/api/documents',
+        'https://api.eformsign.com/v2.0/api/list_documents',
         {
           type: '01',
           title_and_content: '',
