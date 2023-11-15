@@ -170,7 +170,7 @@ export default function EformSignPage() {
     // eslint-disable-next-line no-unused-vars
     const headers = {
       Accept: 'application/json;charset=utf-8',
-      // eformsign_signature: signature,
+      eformsign_signature: signature,
       Authorization: 'Bearer ' + authorizeValue, // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
       'Content-Type': 'application/json;charset=utf-8',
     };
