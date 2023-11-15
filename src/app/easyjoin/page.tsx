@@ -278,64 +278,26 @@ export default function EformSignPage() {
   // }
 
   // eslint-disable-next-line no-unused-vars
-  const handleDocument = async () => {
+  const handleDocument = async (template_id: string, document_id: string) => {
     if (window.EformSignDocument) {
       const eformsign = new window.EformSignDocument();
 
       const document_option: DocumentOption = {
         company: {
-          id: '', // Company ID 입력
-          country_code: '', // 국가 코드 입력 (ex: kr)
-          user_key: '', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교
+          id: 'a3d3398c6b6e4537a4863ad26981463d', // Company ID 입력
+          country_code: 'kr', // 국가 코드 입력 (ex: kr)
+          user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교        },
         },
         user: {
-          type: '01', // 사용자 구분 (01: 멤버, 02: 외부자)
-          id: 'test1@forcs.com', // 사용자 ID(이메일)
-          access_token: '', // Access Token 입력 (eformsign API 사용하기 - Access Token 발급 참조)
-          refresh_token: '', // Refresh Token 입력 (eformsign API 사용하기 - Access Token 발급 참조)
-          external_token: '', // 외부자 처리 시 사용자를 인증할 External Token 입력 (Webhook에서 제공)
-          external_user_info: {
-            name: '', // 외부자 처리 시 외부자 이름 입력
-          },
+          type: '01',
+          id: 'tntnteoskfk@gmail.com',
+          access_token: accessToken,
+          refresh_token: refreshToken,
         },
         mode: {
-          type: '02', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
-          template_id: '', // template id 입력
-          document_id: '', // document_id 입력
-        },
-        layout: {
-          lang_code: 'ko', // 이폼사인 언어. ko, en, ja
-        },
-        prefill: {
-          document_name: '', // 문서 제목 입력
-          fields: [
-            {
-              id: '고객명', // 필드명
-              value: '홍길동', // 필드값
-              enabled: true, // 활성화 여부
-              required: true, // 필수 여부
-            },
-          ],
-          recipients: [
-            {
-              step_idx: '2', // 워크플로우 순서. 수신자가 있을 경우 2부터 시작
-              step_type: '06', // 단계 종류. 05: 참여자, 06: 검토자
-              name: '김테스트', // 수신자 이름
-              id: 'test@forcs.com', // 수신자 ID/이메일
-              sms: '01023456789', // 수신자 핸드폰 번호
-              use_mail: true, // 이메일 알림 사용 여부
-              use_sms: true, // SMS 알림 사용 여부
-              auth: {
-                password: '', // 워크플로우 설정에서 문서 열람 전 본인확인 설정 - 본인확인 정보에 체크한 경우 비밀번호 입력
-                password_hint: '', // 위 조건에 따라 비밀번호를 입력한 경우, 비밀번호 힌트
-                valid: {
-                  day: 7, // 문서 전송 기한 (일)
-                  hour: 0, // 문서 전송 기한 (시간)
-                },
-              },
-            },
-          ],
-          comment: '여기에 코멘트 입력', // 메시지
+          type: '01', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
+          template_id: template_id, // template id 입력
+          // document_id: '', // document_id 입력
         },
         return_fields: ['고객명'], // Success Callback에서 값을 확인할 수 있도록 넘겨줄 필드명
       };
@@ -343,9 +305,16 @@ export default function EformSignPage() {
       const success_callback = (response) => {
         console.log(response.code);
         if (response.code == '-1') {
+          console.log(
+            '=========================success_callback========================='
+          );
           console.log(response.document_id);
           console.log(response.field_values['company_name']);
           console.log(response.field_values['position']);
+          console.log(response);
+          console.log(
+            '=========================success_callback========================='
+          );
         }
       };
 
@@ -449,33 +418,6 @@ export default function EformSignPage() {
     // },
   };
 
-  const template_option2: TemplateOption = {
-    company: {
-      id: 'a3d3398c6b6e4537a4863ad26981463d', // Company ID 입력
-      country_code: 'kr', // 국가 코드 입력 (ex: kr)
-      user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교
-    },
-    mode: {
-      type: '02', // 01 : 생성
-      template_type: 'unstructured_form', // form : 템플릿 관리, unstructured_form: 내 파일로 문서 작성
-    },
-    layout: {
-      lang_code: 'ko', // 이폼사인 언어. ko, en, ja
-      header: true, // 상단바 (푸른색) 표시 여부. 미표시 시 액션 버튼을 통해 전송 등 동작 가능
-      footer: false, // 하단바 (이폼사인 로고, 언어 설정 등) 표시 여부.
-    },
-    user: {
-      id: 'tntnteoskfk@gmail.com',
-      access_token: accessToken, // Access Token 입력 (OpenAPI Access Token 참조)
-      refresh_token: refreshToken, // Refresh Token 입력 (OpenAPI Access Token 참조)
-    },
-    template_file: {
-      name: '첨부테스트.pdf',
-      mime: '@file/octet-stream',
-      data: 'JVBERi0xLjUNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZyhrby1LUikgL1N0cnVjdFRyZWVSb290IDE1IDAgUi...',
-    },
-  };
-
   const handleTemplate = async () => {
     if (window.EformSignTemplate) {
       const eformsign = new window.EformSignTemplate();
@@ -498,7 +440,7 @@ export default function EformSignPage() {
             console.table(response);
             console.log(response);
             console.log('==================end===================');
-            // handleTemplate2();
+            handleDocument(response.template_id, response.template_name);
           } else {
             alert(
               '템플릿 생성에 실패하였습니다.\n' +
@@ -535,55 +477,6 @@ export default function EformSignPage() {
 
       eformsign.template(
         template_option,
-        'eformsign_iframe',
-        success_callback,
-        error_callback,
-        action_callback
-      );
-      await eformsign.open();
-      console.log('#################################됐나?');
-      console.log(eformsign);
-    }
-  };
-
-  // eslint-disable-next-line no-unused-vars
-  const handleTemplate2 = async () => {
-    if (window.EformSignTemplate) {
-      const eformsign = new window.EformSignTemplate();
-
-      console.log(eformsign);
-
-      const success_callback = (response) => {
-        if (response.type === 'template') {
-          console.log(response.template_id);
-          console.log(response.template_name);
-          console.table(response.step_settings);
-          if ('-1' == response.code) {
-            alert('2호출 성공');
-          } else {
-            alert('2호출 실패ㅠ');
-          }
-        }
-        // window.close();
-        console.log(response);
-      };
-
-      const error_callback = (response) => {
-        alert('2호출 실패ㅠㅜㅜ');
-        console.log(response.code);
-        console.log(response.message);
-        console.log(response);
-        // window.close();
-      };
-
-      const action_callback = (response) => {
-        console.table(response.data);
-        console.log('action_callback2!!!!!!!!!!!!!!!!!!!');
-        console.log(response);
-      };
-
-      eformsign.template(
-        template_option2,
         'eformsign_iframe',
         success_callback,
         error_callback,
