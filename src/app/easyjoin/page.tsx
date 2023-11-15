@@ -176,17 +176,24 @@ export default function EformSignPage() {
 
     try {
       const response = await axios.get(
-        'https://api.eformsign.com/v2.0/api/documents?include_fields=true&include_histories=true&include_previous_status=true&include_next_status=true'
-        // {
-        //   type: '01',
-        //   title_and_content: '',
-        //   title: '',
-        //   content: '',
-        //   limit: '20',
-        //   skip: '0',
-        // }
-        // { headers }
+        'https://api.eformsign.com/v2.0/api/documents',
+        {
+          params: {
+            include_fields: true,
+            include_histories: true,
+            include_previous_status: true,
+            include_next_status: true,
+          },
+          headers: {
+            accept: 'application/json',
+            Authorization:
+              'Bearer Y2M5YTI1YmUtZmZiZC00MGM3LWJkYWEtNTYxMzRjZGE0YzQ4',
+            'Content-Type': 'application/json',
+          },
+        }
       );
+
+      console.log(response.data); // 응답 데이터를 콘솔에 출력
       console.log(response.data);
       console.table(response.data);
       console.table(response.data.data);
