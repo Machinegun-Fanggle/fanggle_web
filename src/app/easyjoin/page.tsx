@@ -189,15 +189,7 @@ export default function EformSignPage() {
       //   }
       // );Y2M5YTI1YmUtZmZiZC00MGM3LWJkYWEtNTYxMzRjZGE0YzQ4
       const response = await axios.post(
-        'https://api.eformsign.com/v2.0/api/list_documents',
-        {
-          type: '01',
-          title_and_content: '',
-          title: '',
-          content: '',
-          limit: '20',
-          skip: '0',
-        },
+        'https://api.eformsign.com/v2.0/api/forms',
         { headers }
       );
 
