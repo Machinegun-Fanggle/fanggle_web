@@ -302,7 +302,7 @@ export default function EformSignPage() {
         return_fields: ['고객명'], // Success Callback에서 값을 확인할 수 있도록 넘겨줄 필드명
       };
 
-      const success_callback = (response) => {
+      const success_callback = async (response) => {
         console.log(response.code);
         if (response.code == '-1') {
           console.log(
@@ -313,7 +313,7 @@ export default function EformSignPage() {
           console.log(
             '=========================success_callback========================='
           );
-          window.close();
+          await window.close();
         }
       };
 
