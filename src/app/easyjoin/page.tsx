@@ -184,12 +184,7 @@ export default function EformSignPage() {
             include_previous_status: true,
             include_next_status: true,
           },
-          headers: {
-            accept: 'application/json',
-            Authorization:
-              'Bearer Y2M5YTI1YmUtZmZiZC00MGM3LWJkYWEtNTYxMzRjZGE0YzQ4',
-            'Content-Type': 'application/json',
-          },
+          headers: headers,
         }
       );
 
