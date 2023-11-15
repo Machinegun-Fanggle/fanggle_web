@@ -313,8 +313,7 @@ export default function EformSignPage() {
           console.log(
             '=========================success_callback========================='
           );
-          eformsign.close();
-          // window.close();
+          window.close();
         }
       };
 
