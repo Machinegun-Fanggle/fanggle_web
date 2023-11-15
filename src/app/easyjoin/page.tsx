@@ -32,32 +32,69 @@ export default function EformSignPage() {
   const secretKey =
     '3041020100301306072a8648ce3d020106082a8648ce3d030107042730250201010420c4cee584ca0dccae20342cb95d2c5924874de37137bd750a97b41633bedcf1a5';
 
-  const getSignatureFromEformSignSite = async () => {
+  const createTemplateWithUnstructuredFormOption: TemplateOption = {
+    company: {
+      id: 'a3d3398c6b6e4537a4863ad26981463d', // Company ID 입력
+      country_code: 'kr', // 국가 코드 입력 (ex: kr)
+      user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교
+    },
+    mode: {
+      type: '01', // 01 : 생성
+      template_type: 'unstructured_form', // form : 템플릿 관리, unstructured_form: 내 파일로 문서 작성
+    },
+    layout: {
+      lang_code: 'ko', // 이폼사인 언어. ko, en, ja
+      header: true, // 상단바 (푸른색) 표시 여부. 미표시 시 액션 버튼을 통해 전송 등 동작 가능
+      footer: false, // 하단바 (이폼사인 로고, 언어 설정 등) 표시 여부.
+    },
+    user: {
+      id: 'tntnteoskfk@gmail.com',
+      access_token: accessToken, // Access Token 입력 (OpenAPI Access Token 참조)
+      refresh_token: refreshToken, // Refresh Token 입력 (OpenAPI Access Token 참조)
+    },
+  };
+
+  const signTemplateByTemplateIdOption: DocumentOption = {
+    company: {
+      id: 'a3d3398c6b6e4537a4863ad26981463d', // Company ID 입력
+      country_code: 'kr', // 국가 코드 입력 (ex: kr)
+      user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교        },
+    },
+    user: {
+      type: '01',
+      id: 'tntnteoskfk@gmail.com',
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    },
+    mode: {
+      type: '01', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
+      template_id: '', // template id 입력(필수!)
+    },
+  };
+
+  // jsrsasign 사용하여 서명 생성
+  const createSignature = async () => {
     try {
       const execution_time = Date.now() + '';
       const privateKey = KEYUTIL.getKeyFromPlainPrivatePKCS8Hex(secretKey);
 
-      // Sign
-      const s_sig = new Signature({ alg: 'SHA256withECDSA' });
-      s_sig.init(privateKey);
-      s_sig.updateString(execution_time);
-      const signature = s_sig.sign();
+      const _signature = new Signature({ alg: 'SHA256withECDSA' });
+      _signature.init(privateKey);
+      _signature.updateString(execution_time);
 
-      console.log('execution_time:', execution_time);
-      console.log('signature:', signature);
+      const signature = _signature.sign();
 
       return {
         signature: signature,
         execution_time: execution_time,
       } as unknown as SignitureBody;
-      // 응답으로 서명 데이터 반환
     } catch (error) {
       console.error(error);
     }
   };
 
   // Next.js에서 환경에 따라 Base64 인코딩
-  const encodeToBase64 = (str) => {
+  const encodeToBase64 = (str: string) => {
     if (typeof window === 'undefined')
       // Node.js 환경
       return Buffer.from(str).toString('base64');
@@ -65,24 +102,25 @@ export default function EformSignPage() {
     return btoa(str); // 브라우저 환경
   };
 
-  async function getAccessTokenFromEformSignSite(param: SignitureBody) {
+  // 서명키를 사용하여 이폼사인에서 발급받은 Access Token을 요청
+  async function getAccessTokenFromEformsign(param: SignitureBody) {
     // 1. Authorize: 이폼사인에서 발급받은 API 키를 Base64로 인코딩한 값 입력
-    // 2. Header: 생성한 서명값(eformsign_signature) (* 참고: API 키 발급 시 설정한 검증유형에 따라 다름)
-    // 3. Request body: 서명 생성 시간(execution_time)과 계정 ID(member_id) 입력
     const authorizeValue = encodeToBase64(apiKey);
 
+    // 2. Header: 생성한 서명값(eformsign_signature) (* 참고: API 키 발급 시 설정한 검증유형에 따라 다름)
     const headers = {
       Accept: 'application/json;charset=utf-8',
       eformsign_signature: param.signature,
-      Authorization: 'Bearer ' + authorizeValue,
+      Authorization: 'Bearer ' + authorizeValue, // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
       'Content-Type': 'application/json;charset=utf-8',
     };
 
     try {
+      // 3. Request body: 서명 생성 시간(execution_time)과 계정 ID(member_id) 입력
       const response = await axios.post(
         'https://api.eformsign.com/v2.0/api_auth/access_token',
         {
-          execution_time: param.execution_time, // 현재 시각을 사용합니다.
+          execution_time: param.execution_time,
           member_id: 'tntnteoskfk@gmail.com',
         },
         { headers }
@@ -116,12 +154,25 @@ export default function EformSignPage() {
       console.error('토큰 새로고침 중 오류:', error);
     }
   }
+  const successSendDocs = () => {
+    alert('문서 전송에 성공하였습니다.');
+    router.push('/', { scroll: false });
+  };
 
-  const success_callback = async (response) => {
-    if (response.code == '-1') {
-      alert('문서 전송에 성공하였습니다.');
-      router.push('/', { scroll: false });
+  const successCreateTemplate = (response) => {
+    if (response.type === 'template') {
+      alert(
+        '템플릿 생성되었습니다.\n' +
+          '- document_id : ' +
+          response.template_id +
+          '\n- title : ' +
+          response.template_name
+      );
+      signDocsByTemplateId(response.template_id);
     }
+  };
+  const success_callback = (func: any) => async (response) => {
+    if (response.code == '-1') func(response);
   };
 
   const error_callback = (response) => {
@@ -132,35 +183,16 @@ export default function EformSignPage() {
     console.table(response.data);
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const handleDocument = async (template_id: string) => {
+  const signDocsByTemplateId = async (template_id: string) => {
     if (window.EformSignDocument) {
       const eformsign = new window.EformSignDocument();
 
-      const document_option: DocumentOption = {
-        company: {
-          id: 'a3d3398c6b6e4537a4863ad26981463d', // Company ID 입력
-          country_code: 'kr', // 국가 코드 입력 (ex: kr)
-          user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교        },
-        },
-        user: {
-          type: '01',
-          id: 'tntnteoskfk@gmail.com',
-          access_token: accessToken,
-          refresh_token: refreshToken,
-        },
-        mode: {
-          type: '01', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
-          template_id: template_id, // template id 입력
-          // document_id: '', // document_id 입력
-        },
-        return_fields: ['고객명'], // Success Callback에서 값을 확인할 수 있도록 넘겨줄 필드명
-      };
+      createTemplateWithUnstructuredFormOption.mode.template_id = template_id;
 
       eformsign.document(
-        document_option,
+        signTemplateByTemplateIdOption,
         'eformsign_iframe',
-        success_callback,
+        success_callback(successSendDocs),
         error_callback,
         action_callback
       );
@@ -168,59 +200,14 @@ export default function EformSignPage() {
     }
   };
 
-  const template_option: TemplateOption = {
-    company: {
-      id: 'a3d3398c6b6e4537a4863ad26981463d', // Company ID 입력
-      country_code: 'kr', // 국가 코드 입력 (ex: kr)
-      user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교
-    },
-    mode: {
-      type: '01', // 01 : 생성
-      template_type: 'unstructured_form', // form : 템플릿 관리, unstructured_form: 내 파일로 문서 작성
-    },
-    layout: {
-      lang_code: 'ko', // 이폼사인 언어. ko, en, ja
-      header: true, // 상단바 (푸른색) 표시 여부. 미표시 시 액션 버튼을 통해 전송 등 동작 가능
-      footer: false, // 하단바 (이폼사인 로고, 언어 설정 등) 표시 여부.
-    },
-    user: {
-      id: 'tntnteoskfk@gmail.com',
-      access_token: accessToken, // Access Token 입력 (OpenAPI Access Token 참조)
-      refresh_token: refreshToken, // Refresh Token 입력 (OpenAPI Access Token 참조)
-    },
-  };
-
-  const createTemplateWithMyDocs = async () => {
+  const createTemplateWithMyOwnDocs = async () => {
     if (window.EformSignTemplate) {
       const eformsign = new window.EformSignTemplate();
 
-      // const success_callback = (response) => {
-      //   if (response.type === 'template') {
-      //     if ('-1' == response.code) {
-      //       alert(
-      //         '템플릿 생성되었습니다.\n' +
-      //           '- document_id : ' +
-      //           response.template_id +
-      //           '\n- title : ' +
-      //           response.template_name
-      //       );
-      //       handleDocument(response.template_id, response.template_name);
-      //     } else {
-      //       alert(
-      //         '템플릿 생성에 실패하였습니다.\n' +
-      //           '- code : ' +
-      //           response.code +
-      //           '\n- message : ' +
-      //           response.message
-      //       );
-      //     }
-      //   }
-      // };
-
       eformsign.template(
-        template_option,
+        createTemplateWithUnstructuredFormOption,
         'eformsign_iframe',
-        success_callback,
+        success_callback(successCreateTemplate),
         error_callback,
         action_callback
       );
@@ -229,12 +216,10 @@ export default function EformSignPage() {
   };
 
   useEffect(() => {
-    getSignatureFromEformSignSite().then((data: SignitureBody) =>
-      getAccessTokenFromEformSignSite(data).then(() => {
-        createTemplateWithMyDocs().then((res: any) => {
-          console.log(res);
-          handleDocument(res.template_id);
-        });
+    // 1. 이폼사인에서 signature
+    createSignature().then((data: SignitureBody) =>
+      getAccessTokenFromEformsign(data).then(() => {
+        createTemplateWithMyOwnDocs();
       })
     );
   }, []);
