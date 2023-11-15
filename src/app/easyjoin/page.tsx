@@ -174,7 +174,7 @@ export default function EformSignPage() {
 
     try {
       const response = await axios.post(
-        'https://api.eformsign.com/v2.0/api/list_document',
+        'https://api.eformsign.com/v2.0/api/list_documents',
         {
           type: '01',
           title_and_content: '',
