@@ -162,15 +162,15 @@ export default function EformSignPage() {
   // 서명키를 사용하여 이폼사인에서 발급받은 Access Token을 요청
   async function getDocumentList() {
     // 1. Authorize: 이폼사인에서 발급받은 API 키를 Base64로 인코딩한 값 입력
-    // const authorizeValue = encodeToBase64(apiKey);
+    const authorizeValue = encodeToBase64(apiKey);
 
     // 2. Header: 생성한 서명값(eformsign_signature) (* 참고: API 키 발급 시 설정한 검증유형에 따라 다름)
-    // const headers = {
-    //   Accept: 'application/json;charset=utf-8',
-    //   eformsign_signature: signature,
-    //   Authorization: 'Bearer ' + authorizeValue, // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
-    //   'Content-Type': 'application/json;charset=utf-8',
-    // };
+    const headers = {
+      Accept: 'application/json;charset=utf-8',
+      eformsign_signature: signature,
+      Authorization: 'Bearer ' + authorizeValue, // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
+      'Content-Type': 'application/json;charset=utf-8',
+    };
 
     try {
       const response = await axios.post(
@@ -182,8 +182,8 @@ export default function EformSignPage() {
           content: '',
           limit: '20',
           skip: '0',
-        }
-        // { headers }
+        },
+        { headers }
       );
       console.log(response.data);
       console.table(response.data);
