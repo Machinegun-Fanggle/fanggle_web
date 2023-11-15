@@ -313,6 +313,57 @@ export default function EformSignPage() {
           console.log(
             '=========================success_callback========================='
           );
+          const document_option2: DocumentOption = {
+            company: {
+              id: 'a3d3398c6b6e4537a4863ad26981463d', // Company ID 입력
+              country_code: 'kr', // 국가 코드 입력 (ex: kr)
+              user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교        },
+            },
+            user: {
+              type: '01',
+              id: 'tntnteoskfk@gmail.com',
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            },
+            mode: {
+              type: '02', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
+              template_id: template_id, // template id 입력
+              document_id: response.document_id, // document_id 입력
+            },
+            return_fields: ['고객명'], // Success Callback에서 값을 확인할 수 있도록 넘겨줄 필드명
+          };
+
+          const success_callback2 = (response) => {
+            console.log(response.code);
+            if (response.code == '-1') {
+              console.log(
+                '=========================success_callback========================='
+              );
+              console.log(response.document_id);
+              console.log(response);
+              console.log(
+                '=========================success_callback========================='
+              );
+            }
+          };
+
+          const error_callback2 = (response) => {
+            console.log(response.code);
+            alert(response.message);
+          };
+
+          const action_callback2 = (response) => {
+            console.table(response.data);
+          };
+
+          eformsign.document(
+            document_option2,
+            'eformsign_iframe',
+            success_callback2,
+            error_callback2,
+            action_callback2
+          );
+          eformsign.open();
         }
       };
 
