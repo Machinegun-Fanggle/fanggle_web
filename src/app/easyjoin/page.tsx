@@ -172,6 +172,7 @@ export default function EformSignPage() {
     }
   };
   const success_callback = (func: any) => async (response) => {
+    alert('1');
     if (response.code == '-1') func(response);
   };
 
@@ -216,7 +217,9 @@ export default function EformSignPage() {
   };
 
   useEffect(() => {
-    // 1. 이폼사인에서 signature
+    // 1. 서명 생성
+    // 2. 서명키를 사용하여 이폼사인에서 발급받은 Access Token을 요청
+    // 3. 내 문서로 템플릿 생성
     createSignature().then((data: SignitureBody) =>
       getAccessTokenFromEformsign(data).then(() => {
         createTemplateWithMyOwnDocs();
