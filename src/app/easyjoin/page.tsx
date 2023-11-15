@@ -313,6 +313,7 @@ export default function EformSignPage() {
           console.log(
             '=========================success_callback========================='
           );
+          alert('문서 전송에 성공하였습니다.');
           await window.close();
         }
       };
