@@ -455,7 +455,6 @@ export default function EformSignPage() {
       country_code: 'kr', // 국가 코드 입력 (ex: kr)
       user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교
     },
-
     mode: {
       type: '02', // 01 : 생성
       template_type: 'unstructured_form', // form : 템플릿 관리, unstructured_form: 내 파일로 문서 작성
@@ -470,63 +469,11 @@ export default function EformSignPage() {
       access_token: accessToken, // Access Token 입력 (OpenAPI Access Token 참조)
       refresh_token: refreshToken, // Refresh Token 입력 (OpenAPI Access Token 참조)
     },
-    // prefill: {
-    //   template_name: '템플릿 임베딩 테스트_신규',
-    //   fields: [
-    //     {
-    //       id: '텍스트 1',
-    //       value: '가나다',
-    //       enabled: true,
-    //       required: true,
-    //     },
-    //     {
-    //       id: '텍스트 2',
-    //       value: '라마바',
-    //       enabled: true,
-    //       required: true,
-    //     },
-    //   ],
-    //   step_settings: [
-    //     {
-    //       step_type: '05', // 05: 참여자, 06: 검토자
-    //       step_name: '참여자 2',
-    //       use_mail: true,
-    //       use_sms: true,
-    //       use_alimtalk: true,
-    //       recipients: [
-    //         {
-    //           id: 'test2@forcs.com',
-    //           name: 'John Doe',
-    //         },
-    //         {
-    //           id: '5a3e47a2f5a04909836ddf4189d10fc4',
-    //           name: '그룹3',
-    //         },
-    //       ],
-    //       auth: {
-    //         valid: {
-    //           day: '7',
-    //           hour: '7',
-    //         },
-    //       },
-    //       additional_auth: {
-    //         // 추가 인증 수단
-    //         use_pincode: true, //이메일/SMS 핀코드 인증
-    //         use_pincode_result: true, //문서 최종 완료 시 이메일/SMS 핀코드 인증 사용
-    //         use_mobile_verifyAuth: true, //휴대폰 본인 확인
-    //         use_mobile_verifyAuth_result: true, //문서 최종 완료 시 휴대폰 본인 확인 사용
-    //       },
-    //     },
-    //   ],
-    //   is_form_id_numbering: false,
-    //   disabled_form_id: true,
-    //   quick_processing: false,
-    // },
-    // template_file: {
-    //   name: '첨부테스트.pdf',
-    //   mime: '@file/octet-stream',
-    //   data: 'JVBERi0xLjUNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZyhrby1LUikgL1N0cnVjdFRyZWVSb290IDE1IDAgUi...',
-    // },
+    template_file: {
+      name: '첨부테스트.pdf',
+      mime: '@file/octet-stream',
+      data: 'JVBERi0xLjUNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZyhrby1LUikgL1N0cnVjdFRyZWVSb290IDE1IDAgUi...',
+    },
   };
 
   const handleTemplate = async () => {
@@ -546,7 +493,12 @@ export default function EformSignPage() {
                 '\n- title : ' +
                 response.template_name
             );
-            handleTemplate2();
+            console.log('===================start==================');
+            console.table(response.step_settings);
+            console.table(response);
+            console.log(response);
+            console.log('==================end===================');
+            // handleTemplate2();
           } else {
             alert(
               '템플릿 생성에 실패하였습니다.\n' +
@@ -594,6 +546,7 @@ export default function EformSignPage() {
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const handleTemplate2 = async () => {
     if (window.EformSignTemplate) {
       const eformsign = new window.EformSignTemplate();
