@@ -188,7 +188,7 @@ export default function EformSignPage() {
       //     headers: headers,
       //   }
       // );Y2M5YTI1YmUtZmZiZC00MGM3LWJkYWEtNTYxMzRjZGE0YzQ4
-      const response = await axios.post(
+      const response = await axios.get(
         'https://api.eformsign.com/v2.0/api/forms',
         { headers }
       );
