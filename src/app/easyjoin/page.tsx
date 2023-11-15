@@ -184,10 +184,11 @@ export default function EformSignPage() {
   };
 
   const signDocsByTemplateId = async (template_id: string) => {
+    alert('진입성공');
     if (window.EformSignDocument) {
       const eformsign = new window.EformSignDocument();
 
-      createTemplateWithUnstructuredFormOption.mode.template_id = template_id;
+      signTemplateByTemplateIdOption.mode.template_id = template_id;
 
       await eformsign.document(
         signTemplateByTemplateIdOption,
