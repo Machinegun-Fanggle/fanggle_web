@@ -309,8 +309,6 @@ export default function EformSignPage() {
             '=========================success_callback========================='
           );
           console.log(response.document_id);
-          console.log(response.field_values['company_name']);
-          console.log(response.field_values['position']);
           console.log(response);
           console.log(
             '=========================success_callback========================='
@@ -344,7 +342,6 @@ export default function EformSignPage() {
       country_code: 'kr', // 국가 코드 입력 (ex: kr)
       user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교
     },
-
     mode: {
       type: '01', // 01 : 생성
       template_type: 'unstructured_form', // form : 템플릿 관리, unstructured_form: 내 파일로 문서 작성
