@@ -9,8 +9,8 @@ export {}; // 이 라인을 추가하여 파일을 모듈로 만들어야 합니
 declare global {
   // eslint-disable-next-line no-unused-vars
   interface Window {
-    EformSignDocument: any; // 'any' 대신에 EformSignDocument의 실제 타입을 사용해야 합니다.
-    EformSignTemplate: any; // 'any' 대신에 EformSignTemplate의 실제 타입을 사용해야 합니다.
+    EformSignDocument: any;
+    EformSignTemplate: any;
   }
 }
 
@@ -512,7 +512,8 @@ export default function EformSignPage() {
         action_callback
       );
       eformsign.open();
-      console.log('됐나?');
+      console.log('#################################됐나?');
+      console.log(eformsign);
     }
   };
 
