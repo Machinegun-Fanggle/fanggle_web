@@ -5,6 +5,7 @@ import Script from 'next/script';
 import axios from 'axios';
 import { KEYUTIL, Signature } from 'jsrsasign';
 export {}; // 이 라인을 추가하여 파일을 모듈로 만들어야 합니다.
+import { useRouter } from 'next/navigation';
 
 declare global {
   // eslint-disable-next-line no-unused-vars
@@ -172,6 +173,8 @@ interface Credentials {
 // tntnteoskfk@gmail.com
 // tlsghk6970!AA
 export default function EformSignPage() {
+  const router = useRouter();
+
   const privateKeyHex =
     '3041020100301306072a8648ce3d020106082a8648ce3d030107042730250201010420c4cee584ca0dccae20342cb95d2c5924874de37137bd750a97b41633bedcf1a5';
 
@@ -314,7 +317,7 @@ export default function EformSignPage() {
             '=========================success_callback========================='
           );
           alert('문서 전송에 성공하였습니다.');
-          await window.close();
+          router.push('/', { scroll: false });
         }
       };
 
