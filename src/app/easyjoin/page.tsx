@@ -80,8 +80,8 @@ export default function EformSignPage() {
   const previewDocumentByTemplateIdOption: DocumentOption = {
     company: {
       id: 'a3d3398c6b6e4537a4863ad26981463d', // Company ID 입력
-      // country_code: 'kr', // 국가 코드 입력 (ex: kr)
-      // user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교        },
+      country_code: 'kr', // 국가 코드 입력 (ex: kr)
+      user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교        },
     },
     // user: {
     //   type: '01',
