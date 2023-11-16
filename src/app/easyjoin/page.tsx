@@ -323,7 +323,7 @@ export default function EformSignPage() {
   }, []);
 
   useEffect(() => {
-    alert(documentList);
+    console.log(documentList);
     setDocumentList(documentList);
   }, [documentList]);
 
@@ -355,10 +355,10 @@ export default function EformSignPage() {
       ) : (
         <>
           <>하이</>
-          {documentList?.map((data, idx) => {
+          {documentList.map((item, idx) => {
             <ul key={idx}>
               <li>
-                <button>{data.document_name}</button>
+                <button>dd{item.document_name}</button>
               </li>
             </ul>;
           })}
