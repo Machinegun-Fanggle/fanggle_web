@@ -8,7 +8,6 @@ import { KEYUTIL, Signature } from 'jsrsasign';
 import { DocumentOption } from './interface/documentOption';
 import { TemplateOption } from './interface/templateOption';
 import { SignitureBody, Credentials } from './interface/auth';
-import { set } from 'lodash';
 
 declare global {
   // eslint-disable-next-line no-unused-vars
@@ -284,7 +283,7 @@ export default function EformSignPage() {
     createSignature().then((data: SignitureBody) =>
       getAccessTokenFromEformsign(data).then(() => {
         // createTemplateWithMyOwnDocs();
-        refreshAccessToken();
+        // refreshAccessToken();
         // getDocumentList();
       })
     );
