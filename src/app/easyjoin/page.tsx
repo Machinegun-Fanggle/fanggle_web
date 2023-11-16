@@ -327,8 +327,8 @@ export default function EformSignPage() {
 
   useEffect(() => {
     console.log(documentList);
-    setDocumentList(documentList);
-  }, [documentList, isShowEmbededForm]);
+    setDocumentList((documentList) => [...documentList]);
+  }, [documentList]);
 
   return (
     <div style={{ display: 'flex', width: '100%', height: '100%' }}>
