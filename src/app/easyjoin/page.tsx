@@ -194,7 +194,7 @@ export default function EformSignPage() {
       Accept: 'application/json;charset=utf-8',
       // eformsign_signature: signature,
       Authorization: 'Bearer ' + localStorage.getItem('access_token'), // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
-      // 'Content-Type': 'application/json;charset=utf-8',
+      'Content-Type': 'application/json;charset=utf-8',
     };
 
     console.log('accessToken:::::::::::::::::::::::::::');
@@ -207,7 +207,7 @@ export default function EformSignPage() {
       //   { headers }
       // );
       const response = await axios.post(
-        'https://kr-api.eformsign.com/v2.0/api/list_document',
+        'https://kr-api.eformsign.com/v2.0/api/list_documents',
         {
           type: '01',
           title_and_content: '',
