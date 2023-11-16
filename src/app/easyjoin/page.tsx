@@ -325,11 +325,6 @@ export default function EformSignPage() {
     // createSignature().then((data: SignitureBody) => refreshAccessToken(data));
   }, []);
 
-  useEffect(() => {
-    console.log(documentList);
-    setDocumentList((documentList) => [...documentList]);
-  }, [documentList]);
-
   return (
     <div style={{ display: 'flex', width: '100%', height: '100%' }}>
       <Script
@@ -358,6 +353,8 @@ export default function EformSignPage() {
       ) : documentList.length > 0 ? (
         <ul>
           <>
+            나와라
+            {documentList.length}
             {documentList.map((item, idx) => {
               <li key={idx}>
                 <button>dd{item.document_name}</button>
