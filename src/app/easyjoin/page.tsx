@@ -228,14 +228,16 @@ export default function EformSignPage() {
         { headers }
       );
       console.log('문서목록');
-      console.log(response.data.documents); // 응답 데이터를 콘솔에 출력
-      console.table(response.data.documents);
+      console.log(response);
       setIsShowEmbededForm(false);
       setDocumentList(response.data.documents);
     } catch (error) {
       console.error('문서 목록요청 오류 :', error);
-      await refreshAccessToken();
-      getDocumentList();
+      console.log(error);
+      if (error.code === '401004') {
+        await refreshAccessToken();
+        await getDocumentList();
+      }
     }
   }
 
