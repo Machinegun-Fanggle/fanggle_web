@@ -88,8 +88,8 @@ export default function EformSignPage() {
 
       const signature = _signature.sign();
 
-      setSignature(signature);
-      setExecution_time(execution_time);
+      setSignature((signature) => signature);
+      setExecution_time((execution_time) => execution_time);
       return {
         signature: signature,
         execution_time: execution_time,
