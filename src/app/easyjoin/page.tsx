@@ -304,7 +304,7 @@ export default function EformSignPage() {
       setRefreshToken(localStorage.getItem('refresh_token'));
       console.log(localStorage.getItem('access_token'));
       console.log(localStorage.getItem('refresh_token'));
-
+      createTemplateWithMyOwnDocs();
       getDocumentList();
     } else {
       createSignature().then((data: SignitureBody) => {
