@@ -234,7 +234,7 @@ export default function EformSignPage() {
     } catch (error) {
       console.error('문서 목록요청 오류 :', error);
       console.log(error);
-      if (error.code === '401004') {
+      if (error.response.status === 401) {
         await refreshAccessToken();
         await getDocumentList();
       }
@@ -314,9 +314,8 @@ export default function EformSignPage() {
     if (accessTokenExists && refreshTokenExists) {
       setAccessToken(localStorage.getItem('access_token'));
       setRefreshToken(localStorage.getItem('refresh_token'));
-      console.log(localStorage.getItem('access_token'));
-      console.log(localStorage.getItem('refresh_token'));
-      createTemplateWithMyOwnDocs();
+      // createTemplateWithMyOwnDocs();
+      getDocumentList();
     } else {
       createSignature().then((data: SignitureBody) => {
         getAccessTokenFromEformsign(data).then(() => {
