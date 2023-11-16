@@ -132,7 +132,8 @@ export default function EformSignPage() {
         },
         { headers }
       );
-      console.log('서명 데이터:', response.data as Credentials);
+      console.log('토큰정보 :');
+      console.log(response.data as Credentials);
       setAccessToken(response.data.oauth_token.access_token);
       setRefreshToken(response.data.oauth_token.refresh_token);
     } catch (error) {
