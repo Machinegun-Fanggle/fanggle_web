@@ -137,7 +137,7 @@ export default function EformSignPage() {
       setAccessToken(response.data.oauth_token.access_token);
       setRefreshToken(response.data.oauth_token.refresh_token);
 
-      refreshAccessToken(response.data.oauth_token.refresh_token);
+      // refreshAccessToken(response.data.oauth_token.refresh_token);
     } catch (error) {
       console.error('서명 생성 중 오류:', error);
     }
@@ -280,13 +280,18 @@ export default function EformSignPage() {
     // 1. 서명 생성
     // 2. 서명키를 사용하여 이폼사인에서 발급받은 Access Token을 요청
     // 3. 내 문서로 템플릿 생성
-    createSignature().then((data: SignitureBody) =>
+    createSignature().then((data: SignitureBody) => {
       getAccessTokenFromEformsign(data).then(() => {
         // createTemplateWithMyOwnDocs();
         // refreshAccessToken();
         // getDocumentList();
-      })
-    );
+      });
+      getAccessTokenFromEformsign(data).then(() => {
+        // createTemplateWithMyOwnDocs();
+        // refreshAccessToken();
+        // getDocumentList();
+      });
+    });
 
     // createSignature().then((data: SignitureBody) => refreshAccessToken(data));
   }, []);
