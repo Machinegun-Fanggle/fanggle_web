@@ -207,7 +207,7 @@ export default function EformSignPage() {
       //   { headers }
       // );
       const response = await axios.post(
-        'https://kr-api.eformsign.com/v2.0/api/list_documents',
+        'https://kr-api.eformsign.com/v2.0/api/list_document',
         {
           type: '01',
           title_and_content: '',
