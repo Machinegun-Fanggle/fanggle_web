@@ -157,7 +157,7 @@ export default function EformSignPage() {
   }
 
   // eslint-disable-next-line no-unused-vars
-  async function refreshAccessToken(_refreshToken: string) {
+  async function refreshAccessToken() {
     // 1. Authorize: 이폼사인에서 발급받은 API 키를 Base64로 인코딩한 값 입력
     const authorizeValue = encodeToBase64(apiKey);
 
@@ -171,12 +171,20 @@ export default function EformSignPage() {
 
     try {
       const response = await axios.post(
-        `https://api.eformsign.com/v2.0/api_auth/refresh_token?refresh_token=${_refreshToken}`,
+        `https://api.eformsign.com/v2.0/api_auth/refresh_token?refresh_token=${localStorage.getItem(
+          'refresh_token'
+        )}`,
         {}, // POST 요청 본문은 비워두거나 필요한 다른 데이터를 포함시킵니다.
         { headers }
       );
 
       console.log('새로고침된 토큰 데이터:', response.data);
+
+      // refresh_token을 localStorage에 저장
+      localStorage.setItem(
+        'refresh_token',
+        response.data.oauth_token.refresh_token
+      );
       setAccessToken(response.data.oauth_token.access_token);
       setRefreshToken(response.data.oauth_token.refresh_token);
     } catch (error) {
@@ -226,12 +234,8 @@ export default function EformSignPage() {
       setDocumentList(response.data.documents);
     } catch (error) {
       console.error('문서 목록요청 오류 :', error);
-      createSignature().then((data: SignitureBody) => {
-        getAccessTokenFromEformsign(data).then(() => {
-          console.log('토큰 재발급 완료');
-          getDocumentList();
-        });
-      });
+      await refreshAccessToken();
+      getDocumentList();
     }
   }
 
