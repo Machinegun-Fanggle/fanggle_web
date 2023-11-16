@@ -191,7 +191,7 @@ export default function EformSignPage() {
     // 2. Header: 생성한 서명값(eformsign_signature) (* 참고: API 키 발급 시 설정한 검증유형에 따라 다름)
     // eslint-disable-next-line no-unused-vars
     const headers = {
-      Accept: 'application/json;charset=utf-8',
+      accept: 'application/json;charset=utf-8',
       // eformsign_signature: signature,
       Authorization: 'Bearer ' + accessToken, // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
       // 'Content-Type': 'application/json;charset=utf-8',
