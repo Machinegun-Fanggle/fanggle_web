@@ -187,8 +187,10 @@ export default function EformSignPage() {
       );
       setAccessToken(response.data.oauth_token.access_token);
       setRefreshToken(response.data.oauth_token.refresh_token);
+      return true;
     } catch (error) {
       console.error('토큰 새로고침 중 오류:', error);
+      return false;
     }
   }
 
@@ -235,8 +237,7 @@ export default function EformSignPage() {
       console.error('문서 목록요청 오류 :', error);
       console.log(error);
       if (error.response.status === 401) {
-        await refreshAccessToken();
-        await getDocumentList();
+        if (await refreshAccessToken()) await getDocumentList();
       }
     }
   }
