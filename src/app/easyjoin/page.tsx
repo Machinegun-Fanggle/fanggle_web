@@ -8,6 +8,7 @@ import { KEYUTIL, Signature } from 'jsrsasign';
 import { DocumentOption } from './interface/documentOption';
 import { TemplateOption } from './interface/templateOption';
 import { SignitureBody, Credentials } from './interface/auth';
+import { set } from 'lodash';
 
 declare global {
   // eslint-disable-next-line no-unused-vars
@@ -136,13 +137,15 @@ export default function EformSignPage() {
       console.log(response.data as Credentials);
       setAccessToken(response.data.oauth_token.access_token);
       setRefreshToken(response.data.oauth_token.refresh_token);
+
+      refreshAccessToken(response.data.oauth_token.refresh_token);
     } catch (error) {
       console.error('서명 생성 중 오류:', error);
     }
   }
 
   // eslint-disable-next-line no-unused-vars
-  async function refreshAccessToken() {
+  async function refreshAccessToken(_refreshToken: string) {
     // 1. Authorize: 이폼사인에서 발급받은 API 키를 Base64로 인코딩한 값 입력
     const authorizeValue = encodeToBase64(apiKey);
 
@@ -156,12 +159,13 @@ export default function EformSignPage() {
 
     try {
       const response = await axios.post(
-        `https://api.eformsign.com/v2.0/api_auth/refresh_token?refresh_token=${refreshToken}`,
+        `https://api.eformsign.com/v2.0/api_auth/refresh_token?refresh_token=${_refreshToken}`,
         {}, // POST 요청 본문은 비워두거나 필요한 다른 데이터를 포함시킵니다.
         { headers }
       );
 
       console.log('새로고침된 토큰 데이터:', response.data);
+      setAccessToken(response.data.oauth_token.access_token);
       setRefreshToken(response.data.oauth_token.refresh_token);
     } catch (error) {
       console.error('토큰 새로고침 중 오류:', error);
