@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import Script from 'next/script';
 import axios from 'axios';
 import { KEYUTIL, Signature } from 'jsrsasign';
@@ -73,6 +73,24 @@ export default function EformSignPage() {
     },
     mode: {
       type: '01', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
+      template_id: '', // template id 입력(필수!)
+    },
+  };
+
+  const previewDocumentByTemplateIdOption: DocumentOption = {
+    company: {
+      id: 'a3d3398c6b6e4537a4863ad26981463d', // Company ID 입력
+      country_code: 'kr', // 국가 코드 입력 (ex: kr)
+      user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교        },
+    },
+    user: {
+      type: '01',
+      id: 'tntnteoskfk@gmail.com',
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    },
+    mode: {
+      type: '03', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
       template_id: '', // template id 입력(필수!)
     },
   };
@@ -236,6 +254,10 @@ export default function EformSignPage() {
     }
   }
 
+  const successOpenDocsPreview = () => {
+    alert('문서 열람 성공하였습니다.');
+  };
+
   const successSendDocs = () => {
     alert('문서 전송에 성공하였습니다.');
     // router.push('/', { scroll: false });
@@ -276,6 +298,23 @@ export default function EformSignPage() {
         signTemplateByTemplateIdOption,
         'eformsign_iframe',
         success_callback(successSendDocs),
+        error_callback,
+        action_callback
+      );
+      await eformsign.open();
+    }
+  };
+
+  const previewDocsByTemplateId = async (template_id: string) => {
+    if (window.EformSignDocument) {
+      const eformsign = new window.EformSignDocument();
+
+      previewDocumentByTemplateIdOption.mode.template_id = template_id;
+      setIsShowEmbededForm(true);
+      await eformsign.document(
+        previewDocumentByTemplateIdOption,
+        'eformsign_iframe',
+        success_callback(successOpenDocsPreview),
         error_callback,
         action_callback
       );
@@ -325,6 +364,11 @@ export default function EformSignPage() {
     // createSignature().then((data: SignitureBody) => refreshAccessToken(data));
   }, []);
 
+  const handleClickDocument = (documentInfo: any) => {
+    console.log(documentInfo);
+    previewDocsByTemplateId(documentInfo.template.id);
+  };
+
   return (
     <div style={{ display: 'flex', width: '100%', height: '100%' }}>
       <Script
@@ -355,7 +399,9 @@ export default function EformSignPage() {
           <>
             {documentList.map((item, idx) => (
               <li key={idx}>
-                <button>dd{item.document_name}</button>
+                <button onClick={() => handleClickDocument(item)}>
+                  {item.document_name}
+                </button>
               </li>
             ))}
           </>
