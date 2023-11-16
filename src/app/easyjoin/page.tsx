@@ -346,15 +346,17 @@ export default function EformSignPage() {
           style={{ width: '100%', height: '100%', border: 'none' }}
         />
       ) : (
-        <>
-          {documentList.map((data, idx) => {
-            <ul key={idx}>
-              <li>
-                <button>{data.document_name}</button>
-              </li>
-            </ul>;
-          })}
-        </>
+        <div style={{ width: '100%', height: '100%', background: '#e3e3e3' }}>
+          <>
+            {documentList.map((data, idx) => {
+              <ul key={idx}>
+                <li>
+                  <button>{data.document_name}</button>
+                </li>
+              </ul>;
+            })}
+          </>
+        </div>
       )}
     </div>
   );
