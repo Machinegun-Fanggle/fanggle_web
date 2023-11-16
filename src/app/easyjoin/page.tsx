@@ -193,7 +193,7 @@ export default function EformSignPage() {
     const headers = {
       Accept: 'application/json;charset=utf-8',
       // eformsign_signature: signature,
-      Authorization: 'Bearer ' + authorizeValue, // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
+      Authorization: 'Bearer ' + accessToken, // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
       'Content-Type': 'application/json;charset=utf-8',
     };
 
