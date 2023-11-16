@@ -249,7 +249,7 @@ export default function EformSignPage() {
       console.error('문서 목록요청 오류 :', error);
       console.log(error);
       if (error.response.status === 401) {
-        // if (await refreshAccessToken()) await getDocumentList();
+        if (await refreshAccessToken()) await getDocumentList();
       }
     }
   }
