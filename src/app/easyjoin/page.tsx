@@ -193,9 +193,13 @@ export default function EformSignPage() {
     const headers = {
       accept: 'application/json;charset=utf-8',
       // eformsign_signature: signature,
-      Authorization: 'Bearer ' + accessToken, // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
+      Authorization: 'Bearer ' + localStorage.getItem('access_token'), // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
       // 'Content-Type': 'application/json;charset=utf-8',
     };
+
+    console.log('accessToken:::::::::::::::::::::::::::');
+    console.log(accessToken);
+    console.log(localStorage.getItem('access_token'));
 
     try {
       const response = await axios.get(
