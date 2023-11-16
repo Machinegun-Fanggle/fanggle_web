@@ -146,6 +146,8 @@ export default function EformSignPage() {
       );
       setAccessToken(response.data.oauth_token.access_token);
       setRefreshToken(response.data.oauth_token.refresh_token);
+      console.log(response.data.oauth_token.access_token);
+      console.log(response.data.oauth_token.refresh_token);
 
       // refreshAccessToken(response.data.oauth_token.refresh_token);
     } catch (error) {
@@ -302,6 +304,9 @@ export default function EformSignPage() {
         getAccessTokenFromEformsign(data).then(() => {
           // createTemplateWithMyOwnDocs();
           // refreshAccessToken();
+          console.log('==================================');
+          console.log(accessToken);
+          console.log(refreshToken);
         });
       });
     }
