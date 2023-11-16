@@ -83,12 +83,12 @@ export default function EformSignPage() {
       country_code: 'kr', // 국가 코드 입력 (ex: kr)
       user_key: 'tntnteoskfk@gmail.com', // 임베딩한 고객 측 시스템에 로그인한 사용자의 unique key. 브라우저 쿠키의 이폼사인 로그인 정보와 비교        },
     },
-    // user: {
-    //   type: '01',
-    //   id: 'tntnteoskfk@gmail.com',
-    //   access_token: accessToken,
-    //   refresh_token: refreshToken,
-    // },
+    user: {
+      type: '01',
+      id: 'tntnteoskfk@gmail.com',
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    },
     mode: {
       type: '03', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
       template_id: '', // template id 입력(필수!)
