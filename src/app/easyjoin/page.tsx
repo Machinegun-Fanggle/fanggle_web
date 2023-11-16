@@ -219,7 +219,7 @@ export default function EformSignPage() {
       console.log(response);
       if (response?.status === 200) {
         setIsShowEmbededForm(false);
-        setDocumentList(new Array(response.data.documents));
+        setDocumentList([...response.data.documents]);
       }
     } catch (error) {
       console.error('문서 목록요청 오류 :', error);
