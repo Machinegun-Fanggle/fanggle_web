@@ -349,8 +349,8 @@ export default function EformSignPage() {
     if (accessTokenExists && refreshTokenExists) {
       setAccessToken(localStorage.getItem('access_token'));
       setRefreshToken(localStorage.getItem('refresh_token'));
-      createTemplateWithMyOwnDocs();
-      // getDocumentList();
+      // createTemplateWithMyOwnDocs();
+      getDocumentList();
     } else {
       createSignature().then((data: SignitureBody) => {
         getAccessTokenFromEformsign(data).then(() => {
