@@ -178,13 +178,13 @@ export default function EformSignPage() {
   // eslint-disable-next-line no-unused-vars
   async function refreshAccessToken() {
     // 1. Authorize: 이폼사인에서 발급받은 API 키를 Base64로 인코딩한 값 입력
-    const authorizeValue = encodeToBase64(apiKey);
+    // const authorizeValue = encodeToBase64(apiKey);
 
     // 2. Header: 생성한 서명값(eformsign_signature) (* 참고: API 키 발급 시 설정한 검증유형에 따라 다름)
     const headers = {
       Accept: 'application/json;charset=utf-8',
       eformsign_signature: signature,
-      Authorization: 'Bearer ' + authorizeValue, // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
+      Authorization: 'Bearer ' + localStorage.getItem('access_token'), // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
       'Content-Type': 'application/json;charset=utf-8',
     };
 
@@ -344,26 +344,26 @@ export default function EformSignPage() {
     // 1. 서명 생성
     // 2. 서명키를 사용하여 이폼사인에서 발급받은 Access Token을 요청
     // 3. 내 문서로 템플릿 생성
-    const accessTokenExists = localStorage.getItem('access_token') !== null;
-    const refreshTokenExists = localStorage.getItem('refresh_token') !== null;
+    // const accessTokenExists = localStorage.getItem('access_token') !== null;
+    // const refreshTokenExists = localStorage.getItem('refresh_token') !== null;
 
-    if (accessTokenExists && refreshTokenExists) {
-      setAccessToken(localStorage.getItem('access_token'));
-      setRefreshToken(localStorage.getItem('refresh_token'));
-      // createTemplateWithMyOwnDocs();
-      getDocumentList();
-    } else {
-      createSignature().then((data: SignitureBody) => {
-        getAccessTokenFromEformsign(data).then(() => {
-          // createTemplateWithMyOwnDocs();
-          // refreshAccessToken();
-          console.log('==================================');
-          console.log(accessToken);
-          console.log(refreshToken);
-        });
-      });
-    }
-    // createSignature().then((data: SignitureBody) => refreshAccessToken(data));
+    // if (accessTokenExists && refreshTokenExists) {
+    //   setAccessToken(localStorage.getItem('access_token'));
+    //   setRefreshToken(localStorage.getItem('refresh_token'));
+    //   // createTemplateWithMyOwnDocs();
+    //   getDocumentList();
+    // } else {
+    //   createSignature().then((data: SignitureBody) => {
+    //     getAccessTokenFromEformsign(data).then(() => {
+    //       // createTemplateWithMyOwnDocs();
+    //       // refreshAccessToken();
+    //       console.log('==================================');
+    //       console.log(accessToken);
+    //       console.log(refreshToken);
+    //     });
+    //   });
+    // }
+    createSignature().then(() => refreshAccessToken());
   }, []);
 
   const handleClickDocument = (documentInfo: any) => {
