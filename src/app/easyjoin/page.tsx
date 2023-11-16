@@ -209,7 +209,7 @@ export default function EformSignPage() {
       const response = await axios.post(
         'https://kr-api.eformsign.com/v2.0/api/list_document',
         {
-          type: '01',
+          type: '04',
           title_and_content: '',
           title: '',
           content: '',
