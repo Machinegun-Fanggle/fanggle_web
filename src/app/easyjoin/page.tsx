@@ -92,6 +92,7 @@ export default function EformSignPage() {
     mode: {
       type: '03', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
       template_id: '', // template id 입력(필수!)
+      document_id: '', // document id 입력(필수!)
     },
   };
 
@@ -305,11 +306,12 @@ export default function EformSignPage() {
     }
   };
 
-  const previewDocsByTemplateId = async (template_id: string) => {
+  const previewDocsByTemplateId = async (template_id: string, id: string) => {
     if (window.EformSignDocument) {
       const eformsign = new window.EformSignDocument();
 
       previewDocumentByTemplateIdOption.mode.template_id = template_id;
+      previewDocumentByTemplateIdOption.mode.document_id = id;
 
       await eformsign.document(
         previewDocumentByTemplateIdOption,
@@ -367,7 +369,7 @@ export default function EformSignPage() {
   const handleClickDocument = (documentInfo: any) => {
     console.log(documentInfo);
     setIsShowEmbededForm(true);
-    previewDocsByTemplateId(documentInfo.template.id);
+    previewDocsByTemplateId(documentInfo.template.id, documentInfo.id);
   };
 
   return (
