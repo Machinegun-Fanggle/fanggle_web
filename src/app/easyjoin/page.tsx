@@ -383,13 +383,13 @@ export default function EformSignPage() {
           console.log('eformsign script loaded');
         }}
       />
-      <Script
+      {/* <Script
         src="https://www.eformsign.com/lib/js/efs_embedded_form.js"
         strategy="beforeInteractive"
         onLoad={() => {
           console.log('eformsign script loaded');
         }}
-      />
+      /> */}
       {isShowEmbededForm ? (
         <iframe
           id="eformsign_iframe"
