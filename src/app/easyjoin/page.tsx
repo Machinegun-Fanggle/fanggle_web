@@ -356,15 +356,15 @@ export default function EformSignPage() {
           style={{ width: '100%', height: '100%', border: 'none' }}
         />
       ) : documentList.length > 0 ? (
-        <>
-          {documentList.map((item, idx) => {
-            <ul key={idx}>
-              <li>
+        <ul>
+          <>
+            {documentList.map((item, idx) => {
+              <li key={idx}>
                 <button>dd{item.document_name}</button>
-              </li>
-            </ul>;
-          })}
-        </>
+              </li>;
+            })}
+          </>
+        </ul>
       ) : (
         <>문서없음</>
       )}
