@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Script from 'next/script';
 import axios from 'axios';
 import { KEYUTIL, Signature } from 'jsrsasign';
@@ -310,7 +310,7 @@ export default function EformSignPage() {
       const eformsign = new window.EformSignDocument();
 
       previewDocumentByTemplateIdOption.mode.template_id = template_id;
-      setIsShowEmbededForm(true);
+
       await eformsign.document(
         previewDocumentByTemplateIdOption,
         'eformsign_iframe',
@@ -366,6 +366,7 @@ export default function EformSignPage() {
 
   const handleClickDocument = (documentInfo: any) => {
     console.log(documentInfo);
+    setIsShowEmbededForm(true);
     previewDocsByTemplateId(documentInfo.template.id);
   };
 
