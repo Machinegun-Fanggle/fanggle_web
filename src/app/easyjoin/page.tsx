@@ -323,7 +323,7 @@ export default function EformSignPage() {
   }, []);
 
   useEffect(() => {
-    alert('!');
+    alert(documentList);
     setDocumentList(documentList);
   }, [documentList]);
 
