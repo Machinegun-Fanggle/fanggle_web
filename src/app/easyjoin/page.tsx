@@ -94,6 +94,9 @@ export default function EformSignPage() {
       template_id: '', // template id 입력(필수!)
       document_id: '', // document id 입력(필수!)
     },
+    layout: {
+      lang_code: 'ko', // 이폼사인 언어. ko, en, ja
+    },
   };
 
   // jsrsasign 사용하여 서명 생성
