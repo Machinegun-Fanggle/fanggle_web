@@ -321,6 +321,11 @@ export default function EformSignPage() {
     // createSignature().then((data: SignitureBody) => refreshAccessToken(data));
   }, []);
 
+  useEffect(() => {
+    alert('!');
+    setDocumentList(documentList);
+  }, [documentList]);
+
   return (
     <div style={{ display: 'flex', width: '100%', height: '100%' }}>
       <Script
