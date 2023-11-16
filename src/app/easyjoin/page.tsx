@@ -196,27 +196,13 @@ export default function EformSignPage() {
 
   // 서명키를 사용하여 이폼사인에서 발급받은 Access Token을 요청
   async function getDocumentList() {
-    // 1. Authorize: 이폼사인에서 발급받은 API 키를 Base64로 인코딩한 값 입력
-    const authorizeValue = encodeToBase64(apiKey);
-    console.log(authorizeValue);
-    // 2. Header: 생성한 서명값(eformsign_signature) (* 참고: API 키 발급 시 설정한 검증유형에 따라 다름)
-    // eslint-disable-next-line no-unused-vars
     const headers = {
       Accept: 'application/json;charset=utf-8',
-      // eformsign_signature: signature,
-      Authorization: 'Bearer ' + localStorage.getItem('access_token'), // ! API 키를 Base64로 인코딩한 값 앞에 'Bearer ' 추가헤야 동작함!
+      Authorization: 'Bearer ' + localStorage.getItem('access_token'),
       'Content-Type': 'application/json;charset=utf-8',
     };
 
-    console.log('accessToken:::::::::::::::::::::::::::');
-    console.log(accessToken);
-    console.log(localStorage.getItem('access_token'));
-
     try {
-      // const response = await axios.get(
-      //   'https://kr-api.eformsign.com/v2.0/api/forms',
-      //   { headers }
-      // );
       const response = await axios.post(
         'https://kr-api.eformsign.com/v2.0/api/list_document',
         {
@@ -237,7 +223,7 @@ export default function EformSignPage() {
       console.error('문서 목록요청 오류 :', error);
       console.log(error);
       if (error.response.status === 401) {
-        if (await refreshAccessToken()) await getDocumentList();
+        // if (await refreshAccessToken()) await getDocumentList();
       }
     }
   }
