@@ -26,7 +26,8 @@ export default function EformSignPage() {
   const [signature, setSignature] = useState('');
   // eslint-disable-next-line no-unused-vars
   const [execution_time, setExecution_time] = useState('');
-
+  const [isShowEmbededForm, setIsShowEmbededForm] = useState(true);
+  const [documentList, setDocumentList] = useState([]);
   // const router = useRouter();
 
   // 아래의 키 정보는 디비에서 관리해야함.
@@ -219,10 +220,10 @@ export default function EformSignPage() {
         { headers }
       );
       console.log('문서목록');
-      console.log(response.data); // 응답 데이터를 콘솔에 출력
-      console.log(response.data);
-      console.table(response.data);
-      console.table(response.data.data);
+      console.log(response.data.documents); // 응답 데이터를 콘솔에 출력
+      console.table(response.data.documents);
+      setIsShowEmbededForm(false);
+      setDocumentList(response.data.documents);
     } catch (error) {
       console.error('문서 목록요청 오류 :', error);
     }
@@ -305,7 +306,6 @@ export default function EformSignPage() {
       console.log(localStorage.getItem('access_token'));
       console.log(localStorage.getItem('refresh_token'));
       createTemplateWithMyOwnDocs();
-      getDocumentList();
     } else {
       createSignature().then((data: SignitureBody) => {
         getAccessTokenFromEformsign(data).then(() => {
@@ -340,11 +340,18 @@ export default function EformSignPage() {
           console.log('eformsign script loaded');
         }}
       />
-
-      <iframe
-        id="eformsign_iframe"
-        style={{ width: '100%', height: '100%', border: 'none' }}
-      />
+      {isShowEmbededForm ? (
+        <iframe
+          id="eformsign_iframe"
+          style={{ width: '100%', height: '100%', border: 'none' }}
+        />
+      ) : (
+        <>
+          {documentList.map((data, idx) => {
+            <li key={idx}>{data}</li>;
+          })}
+        </>
+      )}
     </div>
   );
 }
