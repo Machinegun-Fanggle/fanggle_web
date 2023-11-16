@@ -343,26 +343,22 @@ export default function EformSignPage() {
     // 1. 서명 생성
     // 2. 서명키를 사용하여 이폼사인에서 발급받은 Access Token을 요청
     // 3. 내 문서로 템플릿 생성
-    // const accessTokenExists = localStorage.getItem('access_token') !== null;
-    // const refreshTokenExists = localStorage.getItem('refresh_token') !== null;
+    const accessTokenExists = localStorage.getItem('access_token') !== null;
+    const refreshTokenExists = localStorage.getItem('refresh_token') !== null;
 
-    // if (accessTokenExists && refreshTokenExists) {
-    //   setAccessToken(localStorage.getItem('access_token'));
-    //   setRefreshToken(localStorage.getItem('refresh_token'));
-    //   // createTemplateWithMyOwnDocs();
-    //   getDocumentList();
-    // } else {
-    //   createSignature().then((data: SignitureBody) => {
-    //     getAccessTokenFromEformsign(data).then(() => {
-    //       // createTemplateWithMyOwnDocs();
-    //       // refreshAccessToken();
-    //       console.log('==================================');
-    //       console.log(accessToken);
-    //       console.log(refreshToken);
-    //     });
-    //   });
-    // }
-    createSignature().then(() => refreshAccessToken());
+    if (accessTokenExists && refreshTokenExists) {
+      setAccessToken(localStorage.getItem('access_token'));
+      setRefreshToken(localStorage.getItem('refresh_token'));
+      createTemplateWithMyOwnDocs();
+      // getDocumentList();
+    } else {
+      createSignature().then((data: SignitureBody) => {
+        getAccessTokenFromEformsign(data).then(() => {
+          createTemplateWithMyOwnDocs();
+        });
+      });
+    }
+    // refreshAccessToken();
   }, []);
 
   const handleClickDocument = (documentInfo: any) => {
