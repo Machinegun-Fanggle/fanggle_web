@@ -217,8 +217,10 @@ export default function EformSignPage() {
       );
       console.log('문서목록');
       console.log(response);
-      setIsShowEmbededForm(false);
-      setDocumentList(response.data.documents);
+      if (response?.status === 200) {
+        setIsShowEmbededForm(false);
+        setDocumentList(response.data.documents);
+      }
     } catch (error) {
       console.error('문서 목록요청 오류 :', error);
       console.log(error);
@@ -343,17 +345,15 @@ export default function EformSignPage() {
           style={{ width: '100%', height: '100%', border: 'none' }}
         />
       ) : (
-        <div style={{ width: '100%', height: '100%', background: '#e3e3e3' }}>
-          <>
-            {documentList?.map((data, idx) => {
-              <ul key={idx}>
-                <li>
-                  <button>{data.document_name}</button>
-                </li>
-              </ul>;
-            })}
-          </>
-        </div>
+        <>
+          {documentList?.map((data, idx) => {
+            <ul key={idx}>
+              <li>
+                <button>{data.document_name}</button>
+              </li>
+            </ul>;
+          })}
+        </>
       )}
     </div>
   );
