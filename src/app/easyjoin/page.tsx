@@ -355,9 +355,8 @@ export default function EformSignPage() {
           id="eformsign_iframe"
           style={{ width: '100%', height: '100%', border: 'none' }}
         />
-      ) : (
+      ) : documentList.length > 0 ? (
         <>
-          <>하이</>
           {documentList.map((item, idx) => {
             <ul key={idx}>
               <li>
@@ -366,6 +365,8 @@ export default function EformSignPage() {
             </ul>;
           })}
         </>
+      ) : (
+        <>문서없음</>
       )}
     </div>
   );
