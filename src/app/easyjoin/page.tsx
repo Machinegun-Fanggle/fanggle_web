@@ -350,7 +350,7 @@ export default function EformSignPage() {
           console.log('eformsign script loaded');
         }}
       />
-      {isShowEmbededForm ? (
+      {isShowEmbededForm && documentList.length === 0 ? (
         <iframe
           id="eformsign_iframe"
           style={{ width: '100%', height: '100%', border: 'none' }}
