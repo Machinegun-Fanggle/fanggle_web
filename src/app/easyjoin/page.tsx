@@ -401,7 +401,7 @@ export default function EformSignPage() {
             {documentList.map((item, idx) => (
               <li key={idx}>
                 <button onClick={() => handleClickDocument(item)}>
-                  {item.document_name}
+                  {item.document_name}, {item.current_status.step_name}
                 </button>
               </li>
             ))}
