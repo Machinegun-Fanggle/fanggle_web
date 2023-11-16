@@ -90,7 +90,7 @@ export default function EformSignPage() {
       refresh_token: refreshToken,
     },
     mode: {
-      type: '03', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
+      type: '02', // 모드 (01: 새 문서 작성, 02: 문서 처리, 03: 문서 미리보기)
       template_id: '', // template id 입력(필수!)
     },
   };
