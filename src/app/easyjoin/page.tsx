@@ -184,12 +184,12 @@ export default function EformSignPage() {
 
     try {
       console.log(
-        `https://api.eformsign.com/v2.0/api_auth/refresh_token?refresh_token=${localStorage.getItem(
+        `https://kr-api.eformsign.com/v2.0/api_auth/refresh_token?refresh_token=${localStorage.getItem(
           'refresh_token'
         )}`
       );
       const response = await axios.post(
-        `https://api.eformsign.com/v2.0/api_auth/refresh_token?refresh_token=${localStorage.getItem(
+        `https://kr-api.eformsign.com/v2.0/api_auth/refresh_token?refresh_token=${localStorage.getItem(
           'refresh_token'
         )}`,
         {}, // POST 요청 본문은 비워두거나 필요한 다른 데이터를 포함시킵니다.
