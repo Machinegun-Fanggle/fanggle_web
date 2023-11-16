@@ -226,6 +226,12 @@ export default function EformSignPage() {
       setDocumentList(response.data.documents);
     } catch (error) {
       console.error('문서 목록요청 오류 :', error);
+      createSignature().then((data: SignitureBody) => {
+        getAccessTokenFromEformsign(data).then(() => {
+          console.log('토큰 재발급 완료');
+          getDocumentList();
+        });
+      });
     }
   }
 
@@ -260,7 +266,6 @@ export default function EformSignPage() {
   };
 
   const signDocsByTemplateId = async (template_id: string) => {
-    alert('진입성공');
     if (window.EformSignDocument) {
       const eformsign = new window.EformSignDocument();
 
@@ -348,7 +353,7 @@ export default function EformSignPage() {
       ) : (
         <div style={{ width: '100%', height: '100%', background: '#e3e3e3' }}>
           <>
-            {documentList.map((data, idx) => {
+            {documentList?.map((data, idx) => {
               <ul key={idx}>
                 <li>
                   <button>{data.document_name}</button>
