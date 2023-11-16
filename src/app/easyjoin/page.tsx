@@ -348,7 +348,7 @@ export default function EformSignPage() {
       ) : (
         <>
           {documentList.map((data, idx) => {
-            <li key={idx}>{data}</li>;
+            <li key={idx}>{data.document_name}</li>;
           })}
         </>
       )}
