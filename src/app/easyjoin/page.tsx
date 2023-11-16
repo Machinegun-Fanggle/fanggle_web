@@ -202,22 +202,22 @@ export default function EformSignPage() {
     console.log(localStorage.getItem('access_token'));
 
     try {
-      const response = await axios.get(
-        'https://kr-api.eformsign.com/v2.0/api/forms',
-        { headers }
-      );
-      // const response = await axios.post(
-      //   'https://kr-api.eformsign.com/v2.0/api/list_documents',
-      //   {
-      //     type: '01',
-      //     title_and_content: '',
-      //     title: '',
-      //     content: '',
-      //     limit: '20',
-      //     skip: '0',
-      //   },
+      // const response = await axios.get(
+      //   'https://kr-api.eformsign.com/v2.0/api/forms',
       //   { headers }
       // );
+      const response = await axios.post(
+        'https://kr-api.eformsign.com/v2.0/api/list_documents',
+        {
+          type: '01',
+          title_and_content: '',
+          title: '',
+          content: '',
+          limit: '20',
+          skip: '0',
+        },
+        { headers }
+      );
       console.log('문서목록');
       console.log(response.data); // 응답 데이터를 콘솔에 출력
       console.log(response.data);
