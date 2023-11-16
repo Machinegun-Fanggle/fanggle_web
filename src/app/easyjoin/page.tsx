@@ -353,13 +353,11 @@ export default function EformSignPage() {
       ) : documentList.length > 0 ? (
         <ul>
           <>
-            나와라
-            {documentList.length}
-            {documentList.map((item, idx) => {
+            {documentList.map((item, idx) => (
               <li key={idx}>
                 <button>dd{item.document_name}</button>
-              </li>;
-            })}
+              </li>
+            ))}
           </>
         </ul>
       ) : (
